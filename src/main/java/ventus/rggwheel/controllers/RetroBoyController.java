@@ -1,58 +1,84 @@
 package ventus.rggwheel.controllers;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class RetroBoyController {
+    public AnchorPane gp;
 
     @FXML
-    private void addInv(){}
+    private void addInv() {
+    }
+
     @FXML
-    private void useInv(){}
+    private void useInv() {
+    }
+
     @FXML
-    private void addHint(){}
+    private void addHint() {
+    }
+
     @FXML
-    private void useHint(){}
+    private void useHint() {
+    }
+
     @FXML
-    private void addChat(){}
+    private void addChat() {
+    }
+
     @FXML
-    private void useChat(){}
+    private void useChat() {
+    }
+
     @FXML
-    private void addReroll(){}
+    private void addReroll() {
+    }
+
     @FXML
-    private void useReroll(){}
-
-    public void spinAction(ActionEvent actionEvent) {
+    private void useReroll() {
     }
 
-    public void moveUp(ActionEvent actionEvent) {
+    @FXML
+    private void spinAction() {
     }
 
-    public void moveDown(ActionEvent actionEvent) {
+    @FXML
+    private void moveUp() {
     }
 
-    public void timeUp(ActionEvent actionEvent) {
+    @FXML
+    private void moveDown() {
     }
 
-    public void timeDown(ActionEvent actionEvent) {
+    @FXML
+    private void timeUp() {
     }
 
-    public void checkPrize(ActionEvent actionEvent) {
+    @FXML
+    private void timeDown() {
     }
 
-    public void reset(MouseEvent mouseEvent) {
+    @FXML
+    private void checkPrize() {
     }
 
-    public void pickColor(ActionEvent actionEvent) {
+    @FXML
+    private void reset() {
     }
 
-    public void start(ActionEvent actionEvent) {
+    @FXML
+    private void pickColor() {
     }
 
-    public void switchMode(ActionEvent actionEvent) {
+    @FXML
+    private void start() {
     }
 
-    public void generateStats(ActionEvent actionEvent) {
+    @FXML
+    private void switchMode() {
+    }
+
+    @FXML
+    private void generateStats() {
     }
 }

@@ -12,7 +12,7 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
-<Pane fx:id="root_pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI">
+<Pane fx:id="root_pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventus.rggwheel.controllers.RetroBoyController">
     <AnchorPane fx:id="gp">
         <ImageView fx:id="bg_mono" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true"
                    pickOnBounds="true">
@@ -813,7 +813,7 @@
                 </font>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
-                       onContextMenuRequested="#add_inv" onMouseClicked="#use_inv" pickOnBounds="true"
+                       onContextMenuRequested="#addInv" onMouseClicked="#useInv" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@graphics/inv_potion_mono.png"/>
             </ImageView>
@@ -823,17 +823,17 @@
                 </font>
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
-                       onContextMenuRequested="#add_hint" onMouseClicked="#use_hint" pickOnBounds="true"
+                       onContextMenuRequested="#addHint" onMouseClicked="#useHint" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@graphics/manuel_icon_mono.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
-                       onContextMenuRequested="#add_chat" onMouseClicked="#use_chat" pickOnBounds="true"
+                       onContextMenuRequested="#addChat" onMouseClicked="#useChat" pickOnBounds="true"
                        preserveRatio="true">
                 <Image url="@graphics/twitch_icon_mono.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
-                       onMouseClicked="#use_reroll" pickOnBounds="true" preserveRatio="true">
+                       onMouseClicked="#useReroll" pickOnBounds="true" preserveRatio="true">
                 <Image url="@graphics/reroll_potion_mono.png"/>
             </ImageView>
             <Label layoutX="499.0" layoutY="100.0" text="Consult Chat" textFill="#4a490f">
@@ -852,25 +852,25 @@
                 </font>
             </Label>
             <Label fx:id="hints_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="339.0"
-                   onMouseClicked="#add_hint" text="Left: 4" textFill="#4a490f">
+                   onMouseClicked="#addHint" text="Left: 4" textFill="#4a490f">
                 <font>
                     <Font name="Bit Cell" size="55.0"/>
                 </font>
             </Label>
             <Label fx:id="chat_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0" layoutY="339.0"
-                   onMouseClicked="#add_chat" text="Left: 0" textFill="#4a490f">
+                   onMouseClicked="#addChat" text="Left: 0" textFill="#4a490f">
                 <font>
                     <Font name="Bit Cell" size="55.0"/>
                 </font>
             </Label>
             <Label fx:id="inv_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0"
-                   layoutY="651.0" onMouseClicked="#add_inv" text="Out of stock" textFill="#4a490f">
+                   layoutY="651.0" onMouseClicked="#addInv" text="Out of stock" textFill="#4a490f">
                 <font>
                     <Font name="Bit Cell" size="55.0"/>
                 </font>
             </Label>
             <Label fx:id="reroll_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0"
-                   layoutY="651.0" onMouseClicked="#add_reroll" text="Left: 1" textFill="#4a490f">
+                   layoutY="651.0" onMouseClicked="#addReroll" text="Left: 1" textFill="#4a490f">
                 <font>
                     <Font name="Bit Cell" size="55.0"/>
                 </font>
@@ -895,26 +895,26 @@
             </font>
         </Label>
         <Button fx:id="spin_button" disable="true" layoutX="1350.0" layoutY="452.0" mnemonicParsing="false"
-                onAction="#spin_action" opacity="0.0" prefHeight="92.0" prefWidth="79.0" text="Spin a wheel!">
+                onAction="#spinAction" opacity="0.0" prefHeight="92.0" prefWidth="79.0" text="Spin a wheel!">
             <font>
                 <Font size="20.0"/>
             </font>
         </Button>
         <Button fx:id="speed_up" disable="true" layoutX="143.0" layoutY="385.0" mnemonicParsing="false"
-                onAction="#move_up" opacity="0.0" prefHeight="68.0" prefWidth="71.0" text="rotate_up"/>
+                onAction="#moveUp" opacity="0.0" prefHeight="68.0" prefWidth="71.0" text="rotate_up"/>
         <Button fx:id="speed_down" disable="true" layoutX="145.0" layoutY="512.0" mnemonicParsing="false"
-                onAction="#move_down" opacity="0.0" prefHeight="70.0" prefWidth="71.0" text="rotate_down"/>
+                onAction="#moveDown" opacity="0.0" prefHeight="70.0" prefWidth="71.0" text="rotate_down"/>
         <Button fx:id="time_up" disable="true" layoutX="209.0" layoutY="441.0" mnemonicParsing="false"
-                onAction="#time_up" opacity="0.0" prefHeight="87.0" prefWidth="48.0" text="time_up"/>
+                onAction="#timeUp" opacity="0.0" prefHeight="87.0" prefWidth="48.0" text="time_up"/>
         <Button fx:id="time_down" disable="true" layoutX="90.0" layoutY="451.0" mnemonicParsing="false"
-                onAction="#time_down" opacity="0.0" prefHeight="77.0" prefWidth="60.0" text="time_down"/>
+                onAction="#timeDown" opacity="0.0" prefHeight="77.0" prefWidth="60.0" text="time_down"/>
         <Button fx:id="start_button" layoutX="188.0" layoutY="618.0" mnemonicParsing="false" onAction="#start"
                 opacity="0.0" prefHeight="77.0" prefWidth="86.0" text="start"/>
-        <Button fx:id="color" layoutX="84.0" layoutY="613.0" mnemonicParsing="false" onAction="#pick_color"
+        <Button fx:id="color" layoutX="84.0" layoutY="613.0" mnemonicParsing="false" onAction="#pickColor"
                 opacity="0.0" prefHeight="87.0" prefWidth="91.0" text="info"/>
         <Button fx:id="check" disable="true" layoutX="1287.0" layoutY="543.0" mnemonicParsing="false"
-                onAction="#check_prize" opacity="0.0" prefHeight="87.0" prefWidth="86.0" text="check"/>
-        <Button fx:id="color_mode" layoutX="223.0" layoutY="61.0" mnemonicParsing="false" onAction="#switch_mode"
+                onAction="#checkPrize" opacity="0.0" prefHeight="87.0" prefWidth="86.0" text="check"/>
+        <Button fx:id="color_mode" layoutX="223.0" layoutY="61.0" mnemonicParsing="false" onAction="#switchMode"
                 opacity="0.0" prefHeight="29.0" prefWidth="48.0" text="mode_switch"/>
         <ImageView fx:id="color_label" fitHeight="36.0" fitWidth="164.0" layoutX="821.0" layoutY="934.0"
                    onMouseClicked="#reset" opacity="0.0" pickOnBounds="true" preserveRatio="true">
@@ -935,6 +935,6 @@
                 <Font size="16.0"/>
             </font>
         </TextArea>
-        <Button layoutX="1346.0" layoutY="981.0" mnemonicParsing="false" onAction="#generate_stats" text="Back"/>
+        <Button layoutX="1346.0" layoutY="981.0" mnemonicParsing="false" onAction="#generateStats" text="Back"/>
     </AnchorPane>
 </Pane>

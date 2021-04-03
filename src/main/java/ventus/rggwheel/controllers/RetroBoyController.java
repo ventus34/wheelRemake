@@ -7,7 +7,14 @@ public class RetroBoyController {
     public AnchorPane gp;
 
     @FXML
+    private SplashColorController splashColorController;
+
+    @FXML
+    private SplashMonoController splashMonoController;
+
+    @FXML
     private void addInv() {
+        System.out.println("addInv");
     }
 
     @FXML
@@ -72,10 +79,12 @@ public class RetroBoyController {
 
     @FXML
     private void start() {
+        System.out.println("start");
     }
 
     @FXML
     private void switchMode() {
+        System.out.println("switch");
     }
 
     @FXML

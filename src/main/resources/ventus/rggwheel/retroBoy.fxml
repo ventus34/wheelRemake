@@ -19,73 +19,17 @@
             <effect>
                 <ColorAdjust/>
             </effect>
-            <Image url="@graphics/background_mono.png"/>
+            <Image url="@retroBoyMono/graphics/background_mono.png"/>
         </ImageView>
         <ImageView fx:id="bg_color" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true" opacity="0.0"
                    pickOnBounds="true">
             <effect>
                 <ColorAdjust/>
             </effect>
-            <Image url="@graphics/background_color.png"/>
+            <Image url="@retroBoyColor/graphics/background_color.png"/>
         </ImageView>
-<!--        <AnchorPane fx:id="ap_start_mono" prefHeight="647.0" prefWidth="1335.0">-->
-<!--            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="372.0" layoutY="695.0" prefHeight="218.0"-->
-<!--                   prefWidth="802.0" text="Press START" textAlignment="CENTER" textFill="#4a490f">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="150.0"/>-->
-<!--                </font>-->
-<!--            </Label>-->
-<!--            <Label layoutX="375.0" layoutY="741.0" opacity="0.23" prefHeight="241.0" prefWidth="1035.0"-->
-<!--                   text="Code: Ventus34" textFill="#101010">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="29.0"/>-->
-<!--                </font>-->
-<!--            </Label>-->
-<!--            <Label layoutX="375.0" layoutY="798.0" opacity="0.23" prefHeight="181.0" prefWidth="619.0"-->
-<!--                   text="Layout created by Freepik" textFill="#101010">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="29.0"/>-->
-<!--                </font>-->
-<!--            </Label>-->
-<!--            <ImageView fitHeight="730.0" fitWidth="859.0" layoutX="367.0" layoutY="188.0"-->
-<!--                       pickOnBounds="true" preserveRatio="true">-->
-<!--                <Image url="@graphics/super_wheel_mono.png"/>-->
-<!--            </ImageView>-->
-<!--        </AnchorPane>-->
-        <fx:include fx:id="ap_start" source="splashColor.fxml" />
-        <fx:include fx:id="ap_start_mono" source="splashMono.fxml" />
-<!--        <AnchorPane fx:id="ap_start" opacity="0.0" prefHeight="647.0" prefWidth="1335.0">-->
-<!--            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="371.0" layoutY="695.0" prefHeight="218.0"-->
-<!--                   prefWidth="806.0" text="Press START" textAlignment="CENTER">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="150.0"/>-->
-<!--                </font>-->
-<!--                <textFill>-->
-<!--                    <LinearGradient endX="0.47619047619047616" startX="0.4666666666666667">-->
-<!--                        <stops>-->
-<!--                            <Stop color="#ff1500"/>-->
-<!--                            <Stop color="#ffc400" offset="1.0"/>-->
-<!--                        </stops>-->
-<!--                    </LinearGradient>-->
-<!--                </textFill>-->
-<!--            </Label>-->
-<!--            <Label layoutX="375.0" layoutY="741.0" opacity="0.67" prefHeight="241.0" prefWidth="913.0"-->
-<!--                   text="Code: Ventus34" textFill="#101010">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="35.0"/>-->
-<!--                </font>-->
-<!--            </Label>-->
-<!--            <Label layoutX="376.0" layoutY="798.0" opacity="0.68" prefHeight="184.0" prefWidth="929.0"-->
-<!--                   text="Layout created by Freepik" textFill="#101010">-->
-<!--                <font>-->
-<!--                    <Font name="Bit Cell" size="35.0"/>-->
-<!--                </font>-->
-<!--            </Label>-->
-<!--            <ImageView fitHeight="730.0" fitWidth="859.0" layoutX="367.0" layoutY="188.0"-->
-<!--                       pickOnBounds="true" preserveRatio="true">-->
-<!--                <Image url="@graphics/super_wheel.png"/>-->
-<!--            </ImageView>-->
-<!--        </AnchorPane>-->
+        <fx:include fx:id="ap_start" source="retroBoyColor/userInterface/splashColor.fxml" />
+        <fx:include fx:id="ap_start_mono" source="retroBoyMono/userInterface/splashMono.fxml" />
         <AnchorPane fx:id="ap_check" opacity="0.0" prefHeight="200.0" prefWidth="200.0">
             <Label alignment="TOP_LEFT" layoutX="387.0" layoutY="197.0" prefHeight="92.0" prefWidth="756.0"
                    text="Your prize:">
@@ -159,7 +103,7 @@
         <AnchorPane fx:id="ap_wheel" opacity="0.0" prefHeight="1025.0" prefWidth="1480.0">
             <ImageView fx:id="wheel_color" fitHeight="593.0" fitWidth="605.0" layoutX="558.0"
                        layoutY="234.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/wheel_color.png"/>
+                <Image url="@retroBoyColor/graphics/wheel_color.png"/>
             </ImageView>
             <Label layoutX="374.0" layoutY="185.0" prefHeight="87.0" prefWidth="368.0" text="Spin time:">
                 <font>
@@ -215,7 +159,7 @@
         <AnchorPane fx:id="ap_wheel_mono" opacity="0.0" prefHeight="942.0" prefWidth="1408.0">
             <ImageView fx:id="wheel_mono" fitHeight="593.0" fitWidth="605.0" layoutX="558.0" layoutY="234.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/wheel_mono.png"/>
+                <Image url="@retroBoyMono/graphics/wheel_mono.png"/>
             </ImageView>
             <Label layoutX="374.0" layoutY="185.0" prefHeight="87.0" prefWidth="368.0" text="Spin time:"
                    textFill="#171702">
@@ -256,7 +200,7 @@
         </AnchorPane>
         <ImageView fitHeight="1036.0" fitWidth="1478.0" mouseTransparent="true" pickOnBounds="true"
                    preserveRatio="true">
-            <Image url="@graphics/button_ab.png"/>
+            <Image url="@retroBoyColor/graphics/button_ab.png"/>
         </ImageView>
         <Pane fx:id="inventory" layoutX="372.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
               prefWidth="809.0">
@@ -267,7 +211,7 @@
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/inv_potion.png"/>
+                <Image url="@retroBoyColor/graphics/inv_potion.png"/>
             </ImageView>
             <Label layoutX="261.0" text="Inventory" textAlignment="CENTER">
                 <font>
@@ -284,15 +228,15 @@
             </Label>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/manuel_icon.png"/>
+                <Image url="@retroBoyColor/graphics/manuel_icon.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/twitch_icon.png"/>
+                <Image url="@retroBoyColor/graphics/twitch_icon.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/reroll_potion.png"/>
+                <Image url="@retroBoyColor/graphics/reroll_potion.png"/>
             </ImageView>
             <Label layoutX="500.0" layoutY="100.0" text="Consult Chat" textFill="WHITE">
                 <font>
@@ -337,7 +281,7 @@
         <Pane fx:id="stats" layoutX="370.0" layoutY="192.0" opacity="0.0" prefHeight="712.0" prefWidth="806.0">
             <ImageView fitHeight="478.0" fitWidth="453.0" layoutX="184.0" layoutY="148.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/old_wheel_color.png"/>
+                <Image url="@retroBoyColor/graphics/old_wheel_color.png"/>
             </ImageView>
             <Label layoutX="338.0" layoutY="6.0" text="Stats" textAlignment="CENTER">
                 <font>
@@ -702,7 +646,7 @@
               prefWidth="809.0">
             <ImageView fitHeight="478.0" fitWidth="453.0" layoutX="184.0" layoutY="148.0"
                        pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/old_wheel_mono.png"/>
+                <Image url="@retroBoyMono/graphics/old_wheel_mono.png"/>
             </ImageView>
             <Label layoutX="338.0" layoutY="6.0" text="Stats" textAlignment="CENTER" textFill="#4a490f">
                 <font>
@@ -817,7 +761,7 @@
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
                        onContextMenuRequested="#addInv" onMouseClicked="#useInv" pickOnBounds="true"
                        preserveRatio="true">
-                <Image url="@graphics/inv_potion_mono.png"/>
+                <Image url="@retroBoyMono/graphics/inv_potion_mono.png"/>
             </ImageView>
             <Label layoutX="261.0" text="Inventory" textAlignment="CENTER" textFill="#4a490f">
                 <font>
@@ -827,16 +771,16 @@
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
                        onContextMenuRequested="#addHint" onMouseClicked="#useHint" pickOnBounds="true"
                        preserveRatio="true">
-                <Image url="@graphics/manuel_icon_mono.png"/>
+                <Image url="@retroBoyMono/graphics/manuel_icon_mono.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
                        onContextMenuRequested="#addChat" onMouseClicked="#useChat" pickOnBounds="true"
                        preserveRatio="true">
-                <Image url="@graphics/twitch_icon_mono.png"/>
+                <Image url="@retroBoyMono/graphics/twitch_icon_mono.png"/>
             </ImageView>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
                        onMouseClicked="#useReroll" pickOnBounds="true" preserveRatio="true">
-                <Image url="@graphics/reroll_potion_mono.png"/>
+                <Image url="@retroBoyMono/graphics/reroll_potion_mono.png"/>
             </ImageView>
             <Label layoutX="499.0" layoutY="100.0" text="Consult Chat" textFill="#4a490f">
                 <font>
@@ -920,7 +864,7 @@
                 opacity="0.0" prefHeight="29.0" prefWidth="48.0" text="mode_switch"/>
         <ImageView fx:id="color_label" fitHeight="36.0" fitWidth="164.0" layoutX="821.0" layoutY="934.0"
                    onMouseClicked="#reset" opacity="0.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@graphics/color.png"/>
+            <Image url="@retroBoyColor/graphics/color.png"/>
         </ImageView>
     </AnchorPane>
     <AnchorPane fx:id="log_screen" mouseTransparent="true" opacity="0.0" prefHeight="1033.0" prefWidth="1479.0"

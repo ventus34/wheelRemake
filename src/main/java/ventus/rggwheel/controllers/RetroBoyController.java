@@ -2,6 +2,8 @@ package ventus.rggwheel.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
+import ventus.rggwheel.controllers.color.SplashColorController;
+import ventus.rggwheel.controllers.mono.SplashMonoController;
 
 public class RetroBoyController {
     public AnchorPane gp;

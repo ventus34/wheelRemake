@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ventus.rggwheel.controllers.SplashColorController"
+            fx:controller="ventus.rggwheel.controllers.color.SplashColorController"
             opacity="0.0" prefHeight="647.0" prefWidth="1335.0">
     <Label alignment="CENTER" contentDisplay="CENTER" layoutX="371.0" layoutY="695.0" prefHeight="218.0"
            prefWidth="806.0" text="Press START" textAlignment="CENTER">

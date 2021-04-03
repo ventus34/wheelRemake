@@ -1,4 +1,4 @@
-package ventus.rggwheel.controllers;
+package ventus.rggwheel.controllers.mono;
 
 public class InventoryMonoController {
 }

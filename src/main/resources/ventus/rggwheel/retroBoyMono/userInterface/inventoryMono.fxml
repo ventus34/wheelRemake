@@ -6,9 +6,80 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ventus.rggwheel.controllers.color.InventoryColorController"
-            prefHeight="400.0" prefWidth="600.0">
-
-</AnchorPane>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<Pane xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ventus.rggwheel.controllers.mono.InventoryMonoController"
+      layoutX="371.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
+      prefWidth="809.0">
+    <Label layoutX="132.0" layoutY="100.0" text="Hints" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="72.0"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
+               onContextMenuRequested="#addInv" onMouseClicked="#useInv" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../graphics/inv_potion_mono.png"/>
+    </ImageView>
+    <Label layoutX="261.0" text="Inventory" textAlignment="CENTER" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="96.0"/>
+        </font>
+    </Label>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
+               onContextMenuRequested="#addHint" onMouseClicked="#useHint" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../graphics/manuel_icon_mono.png"/>
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
+               onContextMenuRequested="#addChat" onMouseClicked="#useChat" pickOnBounds="true"
+               preserveRatio="true">
+        <Image url="@../graphics/twitch_icon_mono.png"/>
+    </ImageView>
+    <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
+               onMouseClicked="#useReroll" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../graphics/reroll_potion_mono.png"/>
+    </ImageView>
+    <Label layoutX="499.0" layoutY="100.0" text="Consult Chat" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="72.0"/>
+        </font>
+    </Label>
+    <Label layoutX="19.0" layoutY="421.0" text="Invincibility Potion" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="63.0"/>
+        </font>
+    </Label>
+    <Label layoutX="500.0" layoutY="421.0" text="Reroll Potion" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="63.0"/>
+        </font>
+    </Label>
+    <Label fx:id="hints_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="339.0"
+           onMouseClicked="#addHint" text="Left: 4" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="55.0"/>
+        </font>
+    </Label>
+    <Label fx:id="chat_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0" layoutY="339.0"
+           onMouseClicked="#addChat" text="Left: 0" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="55.0"/>
+        </font>
+    </Label>
+    <Label fx:id="inv_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0"
+           layoutY="651.0" onMouseClicked="#addInv" text="Out of stock" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="55.0"/>
+        </font>
+    </Label>
+    <Label fx:id="reroll_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0"
+           layoutY="651.0" onMouseClicked="#addReroll" text="Left: 1" textFill="#4a490f">
+        <font>
+            <Font name="Bit Cell" size="55.0"/>
+        </font>
+    </Label>
+</Pane>

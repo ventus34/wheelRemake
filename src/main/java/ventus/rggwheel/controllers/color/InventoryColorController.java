@@ -1,4 +1,7 @@
 package ventus.rggwheel.controllers.color;
 
-public class InventoryColorController {
+import ventus.rggwheel.controllers.InventoryController;
+
+public class InventoryColorController extends InventoryController {
+
 }

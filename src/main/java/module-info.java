@@ -7,4 +7,5 @@ module rggwheel {
     opens ventus.rggwheel.controllers.color to javafx.fxml;
     opens ventus.rggwheel.controllers.mono to javafx.fxml;
     exports ventus.rggwheel;
+    exports ventus.rggwheel.controllers;
 }

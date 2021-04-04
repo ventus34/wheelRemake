@@ -1,5 +1,7 @@
 package ventus.rggwheel.controllers.mono;
 
-public class SplashMonoController {
+import ventus.rggwheel.controllers.SplashController;
+
+public class SplashMonoController extends SplashController {
 
 }

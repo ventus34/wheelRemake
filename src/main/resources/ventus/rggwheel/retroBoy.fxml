@@ -13,360 +13,37 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <Pane fx:id="root_pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventus.rggwheel.controllers.RetroBoyController">
-    <AnchorPane fx:id="gp">
-        <ImageView fx:id="bg_mono" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true"
+    <AnchorPane fx:id="retroBoyPane">
+        <ImageView fx:id="backgroundMono" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true"
                    pickOnBounds="true">
             <effect>
                 <ColorAdjust/>
             </effect>
             <Image url="@retroBoyMono/graphics/background_mono.png"/>
         </ImageView>
-        <ImageView fx:id="bg_color" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true" opacity="0.0"
+        <ImageView fx:id="backgroundColor" fitHeight="1035.0" fitWidth="1480.0" mouseTransparent="true" opacity="0.0"
                    pickOnBounds="true">
             <effect>
                 <ColorAdjust/>
             </effect>
             <Image url="@retroBoyColor/graphics/background_color.png"/>
         </ImageView>
-        <fx:include fx:id="ap_start" source="retroBoyColor/userInterface/splashColor.fxml" />
-        <fx:include fx:id="ap_start_mono" source="retroBoyMono/userInterface/splashMono.fxml" />
-        <AnchorPane fx:id="ap_check" opacity="0.0" prefHeight="200.0" prefWidth="200.0">
-            <Label alignment="TOP_LEFT" layoutX="387.0" layoutY="197.0" prefHeight="92.0" prefWidth="756.0"
-                   text="Your prize:">
-                <font>
-                    <Font name="Bit Cell" size="76.0"/>
-                </font>
-                <textFill>
-                    <LinearGradient endX="0.47619047619047616" startX="0.4666666666666667">
-                        <stops>
-                            <Stop color="#fff900"/>
-                            <Stop color="#ff5f00" offset="1.0"/>
-                        </stops>
-                    </LinearGradient>
-                </textFill>
-            </Label>
-            <Label fx:id="prize_label" layoutX="668.0" layoutY="180.0" prefHeight="105.0" prefWidth="731.0"
-                   text="???" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="76.0"/>
-                </font>
-            </Label>
-            <Label alignment="TOP_LEFT" layoutX="388.0" layoutY="269.0" prefHeight="216.0" prefWidth="790.0"
-                   text="Effect:" wrapText="true">
-                <font>
-                    <Font name="Bit Cell" size="80.0"/>
-                </font>
-                <textFill>
-                    <LinearGradient endX="0.47619047619047616" startX="0.4666666666666667">
-                        <stops>
-                            <Stop color="#fff900"/>
-                            <Stop color="#ff5f00" offset="1.0"/>
-                        </stops>
-                    </LinearGradient>
-                </textFill>
-            </Label>
-            <Label fx:id="effect_label" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="387.0"
-                   layoutY="350.0" prefHeight="528.0" prefWidth="770.0" text="???" textFill="WHITE"
-                   wrapText="true">
-                <font>
-                    <Font name="Bit Cell" size="80.0"/>
-                </font>
-            </Label>
-        </AnchorPane>
-        <AnchorPane fx:id="ap_check_mono" opacity="0.0" prefHeight="200.0" prefWidth="200.0">
-            <Label alignment="TOP_LEFT" layoutX="386.0" layoutY="196.0" prefHeight="92.0" prefWidth="644.0"
-                   text="Your prize:" textFill="#171702">
-                <font>
-                    <Font name="Bit Cell" size="76.0"/>
-                </font>
-            </Label>
-            <Label fx:id="prize_label1" layoutX="669.0" layoutY="181.0" prefHeight="105.0" prefWidth="738.0"
-                   text="???" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="76.0"/>
-                </font>
-            </Label>
-            <Label alignment="TOP_LEFT" layoutX="388.0" layoutY="270.0" prefHeight="205.0" prefWidth="790.0"
-                   text="Effect:" textFill="#171702" wrapText="true">
-                <font>
-                    <Font name="Bit Cell" size="80.0"/>
-                </font>
-            </Label>
-            <Label fx:id="effect_label1" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="388.0"
-                   layoutY="350.0" prefHeight="554.0" prefWidth="781.0" text="???" textFill="#6c6b2d"
-                   wrapText="true">
-                <font>
-                    <Font name="Bit Cell" size="80.0"/>
-                </font>
-            </Label>
-        </AnchorPane>
-        <fx:include fx:id="ap_wheel" source="retroBoyColor/userInterface/wheelColor.fxml" />
-        <fx:include fx:id="ap_wheel_mono" source="retroBoyMono/userInterface/wheelMono.fxml" />
+        <fx:include fx:id="splashColor" source="retroBoyColor/userInterface/splashColor.fxml" />
+        <fx:include fx:id="splashMono" source="retroBoyMono/userInterface/splashMono.fxml" />
+        <fx:include fx:id="prizeDescriptionColor" source="retroBoyColor/userInterface/prizeDescriptionColor.fxml"/>
+        <fx:include fx:id="prizeDescriptionMono" source="retroBoyMono/userInterface/prizeDescriptionMono.fxml"/>
+        <fx:include fx:id="wheelColor" source="retroBoyColor/userInterface/wheelColor.fxml" />
+        <fx:include fx:id="wheelMono" source="retroBoyMono/userInterface/wheelMono.fxml" />
+        <fx:include fx:id="inventoryColor" source="retroBoyColor/userInterface/inventoryColor.fxml" />
+        <fx:include fx:id="inventoryMono" source="retroBoyMono/userInterface/inventoryMono.fxml" />
         <ImageView fitHeight="1036.0" fitWidth="1478.0" mouseTransparent="true" pickOnBounds="true"
                    preserveRatio="true">
             <Image url="@retroBoyColor/graphics/button_ab.png"/>
         </ImageView>
-        <Pane fx:id="inventory" layoutX="372.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
-              prefWidth="809.0">
-            <Label fx:id="hints2" layoutX="132.0" layoutY="100.0" text="Hints" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
-                       pickOnBounds="true" preserveRatio="true">
-                <Image url="@retroBoyColor/graphics/inv_potion.png"/>
-            </ImageView>
-            <Label layoutX="261.0" text="Inventory" textAlignment="CENTER">
-                <font>
-                    <Font name="Bit Cell" size="96.0"/>
-                </font>
-                <textFill>
-                    <LinearGradient endY="0.20952380952380953" startX="1.0" startY="1.0">
-                        <stops>
-                            <Stop color="RED"/>
-                            <Stop color="#ff8800" offset="1.0"/>
-                        </stops>
-                    </LinearGradient>
-                </textFill>
-            </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
-                       pickOnBounds="true" preserveRatio="true">
-                <Image url="@retroBoyColor/graphics/manuel_icon.png"/>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
-                       pickOnBounds="true" preserveRatio="true">
-                <Image url="@retroBoyColor/graphics/twitch_icon.png"/>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
-                       pickOnBounds="true" preserveRatio="true">
-                <Image url="@retroBoyColor/graphics/reroll_potion.png"/>
-            </ImageView>
-            <Label layoutX="500.0" layoutY="100.0" text="Consult Chat" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label layoutX="19.0" layoutY="421.0" text="Invincibility Potion" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="63.0"/>
-                </font>
-            </Label>
-            <Label layoutX="500.0" layoutY="421.0" text="Reroll Potion" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="63.0"/>
-                </font>
-            </Label>
-            <Label fx:id="hints" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="339.0"
-                   text="Left: 4" textFill="RED">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="chat" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0" layoutY="339.0"
-                   text="Left: 0" textFill="RED">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="inv_pot" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0" layoutY="651.0"
-                   text="Out of stock" textFill="RED">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="reroll_pot" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0" layoutY="651.0"
-                   text="Left: 1" textFill="RED">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <fx:include fx:id="stats" source="retroBoyColor/userInterface/statisticsColor.fxml" />
-        <Pane fx:id="last_prizes" layoutX="369.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
-              prefWidth="806.0">
-            <Label alignment="CENTER" layoutX="13.0" prefHeight="105.0" prefWidth="806.0" text="Last prizes"
-                   textAlignment="CENTER">
-                <font>
-                    <Font name="Bit Cell" size="96.0"/>
-                </font>
-                <textFill>
-                    <LinearGradient endY="0.20952380952380953" startX="1.0" startY="1.0">
-                        <stops>
-                            <Stop color="RED"/>
-                            <Stop color="#ff8800" offset="1.0"/>
-                        </stops>
-                    </LinearGradient>
-                </textFill>
-            </Label>
-            <Label fx:id="p1" alignment="CENTER" layoutX="5.0" layoutY="150.0" prefHeight="77.0"
-                   prefWidth="809.0" text="There will be " textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p2" alignment="CENTER" layoutX="5.0" layoutY="227.0" prefHeight="77.0"
-                   prefWidth="809.0" text="List of few last spins" textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p3" alignment="CENTER" layoutX="5.0" layoutY="304.0" prefHeight="77.0"
-                   prefWidth="809.0" text="But..." textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p4" alignment="CENTER" layoutX="5.0" layoutY="381.0" prefHeight="77.0"
-                   prefWidth="809.0" text="After prizes were moved to another" textAlignment="CENTER"
-                   textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p5" alignment="CENTER" layoutX="5.0" layoutY="458.0" prefHeight="77.0"
-                   prefWidth="809.0" text="Spreadsheet" textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p6" alignment="CENTER" layoutX="6.0" layoutY="535.0" prefHeight="77.0"
-                   prefWidth="809.0" text="I'm not sure they're" textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="p7" alignment="CENTER" layoutX="5.0" layoutY="612.0" prefHeight="77.0"
-                   prefWidth="809.0" text="In good order" textAlignment="CENTER" textFill="WHITE">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <Pane fx:id="last_prizes_mono" layoutX="370.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
-              prefWidth="809.0">
-            <Label alignment="CENTER" layoutX="17.0" prefHeight="105.0" prefWidth="802.0" text="Last prizes"
-                   textAlignment="CENTER" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="96.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm1" alignment="CENTER" layoutX="5.0" layoutY="150.0" prefHeight="77.0"
-                   prefWidth="809.0" text="There will be " textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm2" alignment="CENTER" layoutX="5.0" layoutY="227.0" prefHeight="77.0"
-                   prefWidth="809.0" text="List of few last spins" textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm3" alignment="CENTER" layoutX="5.0" layoutY="304.0" prefHeight="77.0"
-                   prefWidth="809.0" text="But..." textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm4" alignment="CENTER" layoutX="5.0" layoutY="381.0" prefHeight="77.0"
-                   prefWidth="809.0" text="After prizes were moved to another" textAlignment="CENTER"
-                   textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm5" alignment="CENTER" layoutX="5.0" layoutY="458.0" prefHeight="77.0"
-                   prefWidth="809.0" text="Spreadsheet" textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm6" alignment="CENTER" layoutX="6.0" layoutY="535.0" prefHeight="77.0"
-                   prefWidth="809.0" text="I'm not sure they're" textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label fx:id="pm7" alignment="CENTER" layoutX="5.0" layoutY="612.0" prefHeight="77.0"
-                   prefWidth="809.0" text="In good order" textAlignment="CENTER" textFill="#6c6b2d">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-        </Pane>
-        <fx:include fx:id="stats_mono" source="retroBoyMono/userInterface/statisticsMono.fxml" />
-        <Pane fx:id="inventory_mono" layoutX="371.0" layoutY="192.0" opacity="0.0" prefHeight="712.0"
-              prefWidth="809.0">
-            <Label layoutX="132.0" layoutY="100.0" text="Hints" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="489.0"
-                       onContextMenuRequested="#addInv" onMouseClicked="#useInv" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@retroBoyMono/graphics/inv_potion_mono.png"/>
-            </ImageView>
-            <Label layoutX="261.0" text="Inventory" textAlignment="CENTER" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="96.0"/>
-                </font>
-            </Label>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="111.0" layoutY="168.0"
-                       onContextMenuRequested="#addHint" onMouseClicked="#useHint" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@retroBoyMono/graphics/manuel_icon_mono.png"/>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="168.0"
-                       onContextMenuRequested="#addChat" onMouseClicked="#useChat" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@retroBoyMono/graphics/twitch_icon_mono.png"/>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="549.0" layoutY="489.0"
-                       onMouseClicked="#useReroll" pickOnBounds="true" preserveRatio="true">
-                <Image url="@retroBoyMono/graphics/reroll_potion_mono.png"/>
-            </ImageView>
-            <Label layoutX="499.0" layoutY="100.0" text="Consult Chat" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="72.0"/>
-                </font>
-            </Label>
-            <Label layoutX="19.0" layoutY="421.0" text="Invincibility Potion" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="63.0"/>
-                </font>
-            </Label>
-            <Label layoutX="500.0" layoutY="421.0" text="Reroll Potion" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="63.0"/>
-                </font>
-            </Label>
-            <Label fx:id="hints_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="339.0"
-                   onMouseClicked="#addHint" text="Left: 4" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="chat_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0" layoutY="339.0"
-                   onMouseClicked="#addChat" text="Left: 0" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="inv_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="91.0"
-                   layoutY="651.0" onMouseClicked="#addInv" text="Out of stock" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-            <Label fx:id="reroll_pot_mono" alignment="CENTER" contentDisplay="CENTER" layoutX="574.0"
-                   layoutY="651.0" onMouseClicked="#addReroll" text="Left: 1" textFill="#4a490f">
-                <font>
-                    <Font name="Bit Cell" size="55.0"/>
-                </font>
-            </Label>
-        </Pane>
+        <fx:include fx:id="statisticsColor" source="retroBoyColor/userInterface/statisticsColor.fxml" />
+        <fx:include fx:id="prizesHistoryColor" source="retroBoyColor/userInterface/prizesHistoryColor.fxml"/>
+        <fx:include fx:id="prizesHistoryMono" source="retroBoyMono/userInterface/prizesHistoryMono.fxml"/>
+        <fx:include fx:id="statisticsMono" source="retroBoyMono/userInterface/statisticsMono.fxml" />
         <Label fx:id="test" layoutX="83.0" layoutY="751.0" opacity="0.0" prefHeight="127.0" prefWidth="199.0"
                text="Active effect: Invincibility Potion" textAlignment="CENTER" wrapText="true">
             <font>

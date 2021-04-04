@@ -1,4 +1,6 @@
 package ventus.rggwheel.controllers.mono;
 
-public class StatisticsMonoController {
+import ventus.rggwheel.controllers.StatisticsController;
+
+public class StatisticsMonoController extends StatisticsController {
 }

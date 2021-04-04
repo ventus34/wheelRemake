@@ -1,4 +1,6 @@
 package ventus.rggwheel.controllers.mono;
 
-public class WheelMonoController {
+import ventus.rggwheel.controllers.WheelController;
+
+public class WheelMonoController extends WheelController {
 }

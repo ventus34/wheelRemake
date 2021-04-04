@@ -1,5 +1,7 @@
 package ventus.rggwheel.controllers.color;
 
-public class SplashColorController {
+import ventus.rggwheel.controllers.SplashController;
+
+public class SplashColorController extends SplashController {
 
 }

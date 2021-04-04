@@ -1,4 +1,6 @@
 package ventus.rggwheel.controllers.color;
 
-public class StatisticsColorController {
+import ventus.rggwheel.controllers.StatisticsController;
+
+public class StatisticsColorController extends StatisticsController {
 }

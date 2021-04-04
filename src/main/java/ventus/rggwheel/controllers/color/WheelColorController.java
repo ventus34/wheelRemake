@@ -1,4 +1,6 @@
 package ventus.rggwheel.controllers.color;
 
-public class WheelColorController {
+import ventus.rggwheel.controllers.WheelController;
+
+public class WheelColorController extends WheelController {
 }

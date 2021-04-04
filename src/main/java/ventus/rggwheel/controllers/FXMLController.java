@@ -6,10 +6,6 @@ public abstract class FXMLController {
 
     private Pane mainPane;
 
-    public Pane getMainPane() {
-        return mainPane;
-    }
-
     public void setMainPane(Pane mainPane) {
         this.mainPane = mainPane;
     }

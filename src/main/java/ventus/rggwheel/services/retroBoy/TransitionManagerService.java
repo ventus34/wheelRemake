@@ -1,24 +1,28 @@
-package ventus.rggwheel;
+package ventus.rggwheel.services.retroBoy;
 
+import ventus.rggwheel.RetroBoyModesEnum;
+import ventus.rggwheel.controllers.BackgroundController;
 import ventus.rggwheel.controllers.FXMLController;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransitionManager {
+public class TransitionManagerService {
     private final Map<RetroBoyModesEnum, ArrayList<FXMLController>> availableScenes;
+    private final BackgroundController backgroundController;
     private RetroBoyModesEnum currentMode;
     private int currentScene;
     private final int numberOfScenes;
 
-    public TransitionManager(ArrayList<FXMLController> monoScenes, ArrayList<FXMLController> colorScenes) {
+    public TransitionManagerService(ArrayList<FXMLController> monoScenes, ArrayList<FXMLController> colorScenes, BackgroundController backgroundController) {
         Map<RetroBoyModesEnum, ArrayList<FXMLController>> scenes = new HashMap<>();
         scenes.put(RetroBoyModesEnum.MONO, monoScenes);
         scenes.put(RetroBoyModesEnum.COLOR, colorScenes);
         this.availableScenes = scenes;
         this.currentMode = RetroBoyModesEnum.MONO;
         this.currentScene = 0;
+        this.backgroundController = backgroundController;
         if(monoScenes.size()==colorScenes.size()){
             this.numberOfScenes = monoScenes.size();
         } else {
@@ -39,6 +43,7 @@ public class TransitionManager {
 
     }
     public void switchMode(){
+        backgroundController.switchBackground();
         if(currentMode == RetroBoyModesEnum.MONO){
             currentMode = RetroBoyModesEnum.COLOR;
             availableScenes.get(RetroBoyModesEnum.MONO).get(currentScene).hide();

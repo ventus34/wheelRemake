@@ -1,7 +1,6 @@
 package ventus.rggwheel.controllers;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
 public abstract class InventoryController extends FXMLController {
     @FXML

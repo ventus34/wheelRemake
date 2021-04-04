@@ -1,16 +1,15 @@
 package ventus.rggwheel.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ventus.rggwheel.RetroBoyModesEnum;
-import ventus.rggwheel.TransitionManager;
+import ventus.rggwheel.services.retroBoy.TransitionManagerService;
 import ventus.rggwheel.controllers.color.*;
 import ventus.rggwheel.controllers.mono.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Main Retro Boy controller
@@ -23,6 +22,10 @@ import java.util.Map;
 public class RetroBoyController {
     @FXML
     private AnchorPane retroBoyPane;
+    @FXML
+    private ImageView backgroundMono;
+    @FXML
+    private ImageView backgroundColor;
     
     //Inventory
     @FXML private Pane inventoryMono;
@@ -60,7 +63,7 @@ public class RetroBoyController {
     @FXML private AnchorPane wheelColor;
     @FXML private WheelColorController wheelColorController;
 
-    private TransitionManager transitionManager;
+    private TransitionManagerService transitionManagerService;
 
     public void initialize(){
         //Binding root panes
@@ -93,7 +96,9 @@ public class RetroBoyController {
         monoScenesControllers.add(prizesHistoryMonoController);
         monoScenesControllers.add(statisticsMonoController);
 
-        transitionManager = new TransitionManager(monoScenesControllers, colorScenesControllers);
+        BackgroundController backgroundController = new BackgroundController(backgroundMono, backgroundColor);
+
+        transitionManagerService = new TransitionManagerService(monoScenesControllers, colorScenesControllers, backgroundController);
     }
 
     @FXML
@@ -130,12 +135,12 @@ public class RetroBoyController {
 
     @FXML
     private void start() throws IOException {
-        transitionManager.switchScene();
+        transitionManagerService.switchScene();
     }
 
     @FXML
     private void switchMode() {
-        transitionManager.switchMode();
+        transitionManagerService.switchMode();
     }
 
     @FXML

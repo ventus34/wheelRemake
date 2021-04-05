@@ -104,14 +104,18 @@ public class RetroBoyController {
         BackgroundController backgroundController = new BackgroundController(backgroundMono, backgroundColor);
 
         transitionManagerService = new TransitionManagerService(monoScenesControllers, colorScenesControllers, backgroundController);
+        wheelColorController.setMediaPlayerService(mediaPlayerService);
     }
 
     @FXML
     private void spinAction() {
+        System.out.println("ok");
+        wheelColorController.spinColorWheel();
     }
 
     @FXML
     private void moveUp() {
+        System.out.println("oka");
     }
 
     @FXML
@@ -136,6 +140,8 @@ public class RetroBoyController {
 
     @FXML
     private void pickColor() {
+        System.out.println("okd");
+        wheelColorController.spinColorWheel();
         ColorUtils.changeBackgroundColor(retroBoyPane);
     }
 

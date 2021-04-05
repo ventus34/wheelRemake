@@ -9,4 +9,5 @@ module rggwheel {
     opens ventus.rggwheel.controllers.mono to javafx.fxml;
     exports ventus.rggwheel;
     exports ventus.rggwheel.controllers;
+    exports ventus.rggwheel.services.audio;
 }

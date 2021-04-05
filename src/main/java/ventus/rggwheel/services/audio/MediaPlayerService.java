@@ -19,9 +19,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MediaPlayerService {
-    private MediaPlayer musicPlayer;
-    private MediaPlayer soundClipPlayer;
-    private MediaPlayer sfxPlayer;
     private final Map<AudioPlayerEnum, MediaPlayer> players;
 
     public enum AudioPlayerEnum {
@@ -36,68 +33,47 @@ public class MediaPlayerService {
 
     public MediaPlayerService() {
         players = new HashMap<>();
-        players.put(AudioPlayerEnum.MUSIC, musicPlayer);
-        players.put(AudioPlayerEnum.SFX, sfxPlayer);
-        players.put(AudioPlayerEnum.SOUND_CLIPS, soundClipPlayer);
+        players.put(AudioPlayerEnum.MUSIC, null);
+        players.put(AudioPlayerEnum.SFX, null);
+        players.put(AudioPlayerEnum.SOUND_CLIPS, null);
     }
 
     public void play(AudioPlayerEnum player, String fileName) {
-        initPlayerForFile(player, fileName);
-        play(player);
+        switch (player) {
+            case MUSIC:
+                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(musicMap.get(fileName)));
+                players.get(AudioPlayerEnum.MUSIC).play();
+                break;
+            case SOUND_CLIPS:
+                players.replace(AudioPlayerEnum.SOUND_CLIPS, getAudioPlayer(soundClipsMap.get(fileName)));
+                players.get(AudioPlayerEnum.SOUND_CLIPS).play();
+                break;
+            case SFX:
+                players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
+                players.get(AudioPlayerEnum.SFX).play();
+                break;
+        }
     }
 
-    public void play(AudioPlayerEnum player, String fileName, int fadeoutTime) {
-        initPlayerForFile(player, fileName);
-        setFadeout(player, fadeoutTime);
-        play(player);
-    }
 
-    private void setFadeout(AudioPlayerEnum player, int fadeoutTime) {
+    public void fadeout(AudioPlayerEnum player, double fadeoutTime) {
         MediaPlayer currentPlayer = null;
         switch (player) {
             case MUSIC:
-                currentPlayer = musicPlayer;
+                currentPlayer = players.get(AudioPlayerEnum.MUSIC);
                 break;
             case SOUND_CLIPS:
-                currentPlayer = soundClipPlayer;
+                currentPlayer = players.get(AudioPlayerEnum.SOUND_CLIPS);
                 break;
             case SFX:
-                currentPlayer = sfxPlayer;
+                currentPlayer = players.get(AudioPlayerEnum.SFX);
                 break;
         }
         new Timeline(
                 new KeyFrame(Duration.seconds(fadeoutTime),
-                        new KeyValue(currentPlayer.volumeProperty(), 0)));
+                        new KeyValue(currentPlayer.volumeProperty(), 0))).play();
     }
 
-
-    private void play(AudioPlayerEnum player) {
-        switch (player) {
-            case MUSIC:
-                musicPlayer.play();
-                break;
-            case SOUND_CLIPS:
-                soundClipPlayer.play();
-                break;
-            case SFX:
-                sfxPlayer.play();
-                break;
-        }
-    }
-
-    private void initPlayerForFile(AudioPlayerEnum player, String fileName) {
-        switch (player) {
-            case MUSIC:
-                musicPlayer = getAudioPlayer(musicMap.get(fileName));
-                break;
-            case SOUND_CLIPS:
-                soundClipPlayer = getAudioPlayer(soundClipsMap.get(fileName));
-                break;
-            case SFX:
-                sfxPlayer = getAudioPlayer(sfxMap.get(fileName));
-                break;
-        }
-    }
 
     public void setVolume(AudioPlayerEnum player, Double volume) {
         try {
@@ -133,7 +109,7 @@ public class MediaPlayerService {
         }
     }
 
-    public MediaPlayer initPlayerForFile(AudioPlayerEnum player) {
+    public MediaPlayer getPlayer(AudioPlayerEnum player) {
         try {
             return players.get(player);
         } catch (NullPointerException e) {

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.retroBoy.TransitionManagerService;
 import ventus.rggwheel.controllers.color.*;
 import ventus.rggwheel.controllers.mono.*;
@@ -64,6 +65,7 @@ public class RetroBoyController {
     @FXML private WheelColorController wheelColorController;
 
     private TransitionManagerService transitionManagerService;
+    private final MediaPlayerService mediaPlayerService = new MediaPlayerService();
 
     public void initialize(){
         //Binding root panes
@@ -136,6 +138,7 @@ public class RetroBoyController {
     @FXML
     private void start() throws IOException {
         transitionManagerService.switchScene();
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
     }
 
     @FXML

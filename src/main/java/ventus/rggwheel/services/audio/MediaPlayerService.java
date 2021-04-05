@@ -19,11 +19,13 @@ public class MediaPlayerService {
     private MediaPlayer musicPlayer;
     private MediaPlayer soundClipPlayer;
     private MediaPlayer sfxPlayer;
-    private final Map<AvailablePlayersEnum, MediaPlayer> players;
+    private final Map<AudioPlayerEnum, MediaPlayer> players;
 
-    public enum AvailablePlayersEnum{
+    public enum AudioPlayerEnum {
         MUSIC, SOUND_CLIPS, SFX
     }
+
+    private Double GLOBAL_VOLUME = 0.2;
 
     Map<String, Media> soundClipsMap = load("sound/clips");
     Map<String, Media> sfxMap = load("sound/sfx");
@@ -31,29 +33,29 @@ public class MediaPlayerService {
 
     public MediaPlayerService(){
         players = new HashMap<>();
-        players.put(AvailablePlayersEnum.MUSIC, musicPlayer);
-        players.put(AvailablePlayersEnum.SFX, sfxPlayer);
-        players.put(AvailablePlayersEnum.SOUND_CLIPS, soundClipPlayer);
+        players.put(AudioPlayerEnum.MUSIC, musicPlayer);
+        players.put(AudioPlayerEnum.SFX, sfxPlayer);
+        players.put(AudioPlayerEnum.SOUND_CLIPS, soundClipPlayer);
     }
 
-    public void play(AvailablePlayersEnum player, String fileName){
+    public void play(AudioPlayerEnum player, String fileName){
         switch (player) {
             case MUSIC:
-                musicPlayer = new MediaPlayer(musicMap.get(fileName));
+                musicPlayer = getAudioPlayer(musicMap.get(fileName));
                 musicPlayer.play();
                 break;
             case SOUND_CLIPS:
-                soundClipPlayer = new MediaPlayer(soundClipsMap.get(fileName));
+                soundClipPlayer = getAudioPlayer(soundClipsMap.get(fileName));
                 soundClipPlayer.play();
                 break;
             case SFX:
-                sfxPlayer = new MediaPlayer(sfxMap.get(fileName));
+                sfxPlayer = getAudioPlayer(sfxMap.get(fileName));
                 sfxPlayer.play();
                 break;
         }
     }
 
-    public void setVolume(AvailablePlayersEnum player, Double volume){
+    public void setVolume(AudioPlayerEnum player, Double volume){
         try {
             players.get(player).setVolume(volume);
         } catch (NullPointerException e){
@@ -61,7 +63,7 @@ public class MediaPlayerService {
         }
     }
 
-    public void seek(AvailablePlayersEnum player, Duration destination){
+    public void seek(AudioPlayerEnum player, Duration destination){
         try {
             players.get(player).seek(destination);
         } catch (NullPointerException e){
@@ -69,7 +71,7 @@ public class MediaPlayerService {
         }
     }
 
-    public void stop(AvailablePlayersEnum player){
+    public void stop(AudioPlayerEnum player){
         try {
             players.get(player).stop();
         } catch (NullPointerException e){
@@ -77,7 +79,7 @@ public class MediaPlayerService {
         }
     }
 
-    public void replay(AvailablePlayersEnum player){
+    public void replay(AudioPlayerEnum player){
         try {
             MediaPlayer currentPlayer = players.get(player);
             currentPlayer.seek(new Duration(0));
@@ -87,7 +89,7 @@ public class MediaPlayerService {
         }
     }
 
-    public MediaPlayer getPlayer(AvailablePlayersEnum player){
+    public MediaPlayer getPlayer(AudioPlayerEnum player){
         try {
             return players.get(player);
         } catch (NullPointerException e){
@@ -116,5 +118,11 @@ public class MediaPlayerService {
 
     private String URIResolver(String directory, Path filePath){
         return App.class.getResource(directory + "/" + filePath.getFileName().toString()).toExternalForm();
+    }
+
+    private MediaPlayer getAudioPlayer(Media media){
+        MediaPlayer player = new MediaPlayer(media);
+        player.setVolume(GLOBAL_VOLUME);
+        return player;
     }
 }

@@ -1,5 +1,8 @@
 package ventus.rggwheel.services.audio;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -31,74 +34,115 @@ public class MediaPlayerService {
     Map<String, Media> sfxMap = load("sound/sfx");
     Map<String, Media> musicMap = load("sound/music");
 
-    public MediaPlayerService(){
+    public MediaPlayerService() {
         players = new HashMap<>();
         players.put(AudioPlayerEnum.MUSIC, musicPlayer);
         players.put(AudioPlayerEnum.SFX, sfxPlayer);
         players.put(AudioPlayerEnum.SOUND_CLIPS, soundClipPlayer);
     }
 
-    public void play(AudioPlayerEnum player, String fileName){
+    public void play(AudioPlayerEnum player, String fileName) {
+        initPlayerForFile(player, fileName);
+        play(player);
+    }
+
+    public void play(AudioPlayerEnum player, String fileName, int fadeoutTime) {
+        initPlayerForFile(player, fileName);
+        setFadeout(player, fadeoutTime);
+        play(player);
+    }
+
+    private void setFadeout(AudioPlayerEnum player, int fadeoutTime) {
+        MediaPlayer currentPlayer = null;
         switch (player) {
             case MUSIC:
-                musicPlayer = getAudioPlayer(musicMap.get(fileName));
+                currentPlayer = musicPlayer;
+                break;
+            case SOUND_CLIPS:
+                currentPlayer = soundClipPlayer;
+                break;
+            case SFX:
+                currentPlayer = sfxPlayer;
+                break;
+        }
+        new Timeline(
+                new KeyFrame(Duration.seconds(fadeoutTime),
+                        new KeyValue(currentPlayer.volumeProperty(), 0)));
+    }
+
+
+    private void play(AudioPlayerEnum player) {
+        switch (player) {
+            case MUSIC:
                 musicPlayer.play();
                 break;
             case SOUND_CLIPS:
-                soundClipPlayer = getAudioPlayer(soundClipsMap.get(fileName));
                 soundClipPlayer.play();
                 break;
             case SFX:
-                sfxPlayer = getAudioPlayer(sfxMap.get(fileName));
                 sfxPlayer.play();
                 break;
         }
     }
 
-    public void setVolume(AudioPlayerEnum player, Double volume){
+    private void initPlayerForFile(AudioPlayerEnum player, String fileName) {
+        switch (player) {
+            case MUSIC:
+                musicPlayer = getAudioPlayer(musicMap.get(fileName));
+                break;
+            case SOUND_CLIPS:
+                soundClipPlayer = getAudioPlayer(soundClipsMap.get(fileName));
+                break;
+            case SFX:
+                sfxPlayer = getAudioPlayer(sfxMap.get(fileName));
+                break;
+        }
+    }
+
+    public void setVolume(AudioPlayerEnum player, Double volume) {
         try {
             players.get(player).setVolume(volume);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Player has not been initialized");
         }
     }
 
-    public void seek(AudioPlayerEnum player, Duration destination){
+    public void seek(AudioPlayerEnum player, Duration destination) {
         try {
             players.get(player).seek(destination);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Player has not been initialized");
         }
     }
 
-    public void stop(AudioPlayerEnum player){
+    public void stop(AudioPlayerEnum player) {
         try {
             players.get(player).stop();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Player has not been initialized");
         }
     }
 
-    public void replay(AudioPlayerEnum player){
+    public void replay(AudioPlayerEnum player) {
         try {
             MediaPlayer currentPlayer = players.get(player);
             currentPlayer.seek(new Duration(0));
             currentPlayer.play();
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Player has not been initialized");
         }
     }
 
-    public MediaPlayer getPlayer(AudioPlayerEnum player){
+    public MediaPlayer initPlayerForFile(AudioPlayerEnum player) {
         try {
             return players.get(player);
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             System.out.println("Player has not been initialized");
         }
         return null;
     }
 
-    private Map<String, Media> load(String directoryPath){
+    private Map<String, Media> load(String directoryPath) {
         Map<String, Media> mediaMap = new HashMap<>();
         List<Path> result;
         URL soundDirectory = App.class.getResource(directoryPath);
@@ -116,11 +160,11 @@ public class MediaPlayerService {
         throw new IllegalStateException();
     }
 
-    private String URIResolver(String directory, Path filePath){
+    private String URIResolver(String directory, Path filePath) {
         return App.class.getResource(directory + "/" + filePath.getFileName().toString()).toExternalForm();
     }
 
-    private MediaPlayer getAudioPlayer(Media media){
+    private MediaPlayer getAudioPlayer(Media media) {
         MediaPlayer player = new MediaPlayer(media);
         player.setVolume(GLOBAL_VOLUME);
         return player;

@@ -4,13 +4,16 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import ventus.rggwheel.model.RetroBoyColorEnum;
 import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.retroBoy.TransitionManagerService;
 import ventus.rggwheel.controllers.color.*;
 import ventus.rggwheel.controllers.mono.*;
+import ventus.rggwheel.utils.ColorUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.EnumSet;
 
 /**
  * Main Retro Boy controller
@@ -133,6 +136,7 @@ public class RetroBoyController {
 
     @FXML
     private void pickColor() {
+        ColorUtils.changeBackgroundColor(retroBoyPane);
     }
 
     @FXML
@@ -144,6 +148,7 @@ public class RetroBoyController {
     @FXML
     private void switchMode() {
         transitionManagerService.switchMode();
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
     }
 
     @FXML

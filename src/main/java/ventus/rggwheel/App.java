@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ventus.rggwheel.services.retroBoy.MediaPlayerService;
+import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.retroBoy.RetroBoySizeHandlerService;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class App extends Application {
         stage.show();
         RetroBoySizeHandlerService.resizeHandler(scene);
         MediaPlayerService mediaPlayerService = new MediaPlayerService();
-        mediaPlayerService.test();
+//        mediaPlayerService.test();
     }
 
     static void setRoot(String fxml) throws IOException {

@@ -16,20 +16,16 @@ public class WheelUtils {
 
     private static final double angleOfPrizeCenter = numberOfPrizes/2.00;
 
-    private Random rng;
+    private static final Random rng = new Random();
 
-    public WheelUtils() {
-        rng = new Random();
-    }
-
-    private static Double getAngle(){
+    public static Double getAngle(){
         return WHEEL_ANGLE/numberOfPrizes;
     }
-    private static Double getMiddlePositionAngle() {
+    public static Double getMiddlePositionAngle() {
         return WHEEL_ANGLE/numberOfPrizes/2;
     }
 
-    public PrizeEnum indicatedPrize(double wheelAngleRotation){
+    public static PrizeEnum indicatedPrize(double wheelAngleRotation){
         double absoluteRotation = wheelAngleRotation % 360;
         for(int i = 1; i <= numberOfPrizes; i++) {
             if (absoluteRotation < getAngle() * i) {
@@ -39,7 +35,7 @@ public class WheelUtils {
         return prizesList.get(0);
     }
 
-    public double getRandomAngle(){
-        return rng.nextDouble() + rng.nextInt(360);
+    public static double getRandomAngle(){
+        return rng.nextDouble() + rng.nextInt(360)  + 360 * (rng.nextInt(10) + 10 );
     }
 }

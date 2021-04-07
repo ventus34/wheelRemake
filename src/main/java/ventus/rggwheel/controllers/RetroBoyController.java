@@ -1,10 +1,11 @@
 package ventus.rggwheel.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import ventus.rggwheel.model.RetroBoyColorEnum;
+import ventus.rggwheel.RetroBoyModesEnum;
 import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.retroBoy.TransitionManagerService;
 import ventus.rggwheel.controllers.color.*;
@@ -13,7 +14,8 @@ import ventus.rggwheel.utils.ColorUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Main Retro Boy controller
@@ -30,7 +32,18 @@ public class RetroBoyController {
     private ImageView backgroundMono;
     @FXML
     private ImageView backgroundColor;
-    
+
+    @FXML private Button speedUp;
+    @FXML private Button speedDown;
+    @FXML private Button timeUp;
+    @FXML private Button timeDown;
+    @FXML private Button startButton;
+    @FXML private Button color;
+    @FXML private Button check;
+    @FXML private Button colorMode;
+
+    private Set<Button> buttons;
+
     //Inventory
     @FXML private Pane inventoryMono;
     @FXML private InventoryMonoController inventoryMonoController;
@@ -105,12 +118,31 @@ public class RetroBoyController {
 
         transitionManagerService = new TransitionManagerService(monoScenesControllers, colorScenesControllers, backgroundController);
         wheelColorController.setMediaPlayerService(mediaPlayerService);
+        wheelMonoController.setMediaPlayerService(mediaPlayerService);
+        wheelColorController.setOppositeModeController(wheelMonoController);
+        wheelMonoController.setOppositeModeController(wheelColorController);
+
+        buttons = new HashSet<>();
+        buttons.add(speedUp);
+        buttons.add(speedDown);
+        buttons.add(timeUp);
+        buttons.add(timeDown);
+        buttons.add(startButton);
+        buttons.add(color);
+        buttons.add(check);
+        buttons.add(colorMode);
+
+
     }
 
     @FXML
     private void spinAction() {
         System.out.println("ok");
-        wheelColorController.spinColorWheel();
+        if(transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)){
+            wheelColorController.spinWheel();
+        } else {
+            wheelMonoController.spinWheel();
+        }
     }
 
     @FXML
@@ -141,7 +173,11 @@ public class RetroBoyController {
     @FXML
     private void pickColor() {
         System.out.println("okd");
-        wheelColorController.spinColorWheel();
+        if(transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)){
+            wheelColorController.spinWheel();
+        } else {
+            wheelMonoController.spinWheel();
+        }
         ColorUtils.changeBackgroundColor(retroBoyPane);
     }
 
@@ -159,6 +195,14 @@ public class RetroBoyController {
 
     @FXML
     private void generateStats() {
+
+    }
+
+    void lockButtons(){
+        buttons.forEach(button -> button.setDisable(true));
+    }
+    void unlockButtons(){
+        buttons.forEach(button -> button.setDisable(false));
     }
 
 }

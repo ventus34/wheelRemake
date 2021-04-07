@@ -122,6 +122,7 @@ public class MediaPlayerService {
         Map<String, Media> mediaMap = new HashMap<>();
         List<Path> result;
         URL soundDirectory = App.class.getResource(directoryPath);
+        //todo fix jar
         try (Stream<Path> walk = Files.walk(Paths.get(soundDirectory.toURI()))) {
             result = walk.filter(Files::isRegularFile).collect(Collectors.toList());
             result.forEach(currentFilePath -> {

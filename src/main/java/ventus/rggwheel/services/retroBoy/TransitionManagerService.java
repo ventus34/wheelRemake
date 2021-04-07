@@ -54,4 +54,8 @@ public class TransitionManagerService {
             availableScenes.get(RetroBoyModesEnum.MONO).get(currentScene).show();
         }
     }
+
+    public RetroBoyModesEnum getCurrentMode() {
+        return currentMode;
+    }
 }

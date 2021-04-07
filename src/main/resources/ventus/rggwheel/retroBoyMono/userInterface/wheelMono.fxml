@@ -1,58 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ventus.rggwheel.controllers.mono.WheelMonoController"
-            opacity="0.0" prefHeight="942.0" prefWidth="1408.0">
-    <ImageView fx:id="wheel_mono" fitHeight="593.0" fitWidth="605.0" layoutX="558.0" layoutY="234.0"
-               pickOnBounds="true" preserveRatio="true">
-        <Image url="@../graphics/wheel_mono.png"/>
+<AnchorPane opacity="0.0" prefHeight="942.0" prefWidth="1408.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventus.rggwheel.controllers.mono.WheelMonoController">
+    <ImageView fx:id="wheelMono" fitHeight="593.0" fitWidth="605.0" layoutX="558.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../graphics/wheel_mono.png" />
     </ImageView>
-    <Label layoutX="374.0" layoutY="185.0" prefHeight="87.0" prefWidth="368.0" text="Spin time:"
-           textFill="#171702">
+    <Label layoutX="374.0" layoutY="185.0" prefHeight="87.0" prefWidth="368.0" text="Spin time:" textFill="#171702">
         <font>
-            <Font name="Bit Cell" size="80.0"/>
+            <Font name="Bit Cell" size="80.0" />
         </font>
     </Label>
-    <Label fx:id="spinTime1" layoutX="627.0" layoutY="177.0" prefHeight="105.0" prefWidth="247.0"
-           text="10" textFill="#6c6b2d">
+    <Label fx:id="spinTime" layoutX="627.0" layoutY="177.0" prefHeight="105.0" prefWidth="247.0" text="10" textFill="#6c6b2d">
         <font>
-            <Font name="Bit Cell" size="80.0"/>
+            <Font name="Bit Cell" size="80.0" />
         </font>
     </Label>
-    <Label layoutX="447.0" layoutY="455.0" prefHeight="168.0" prefWidth="530.0" text="---&gt;"
-           textFill="#6b6a2d">
+    <Label layoutX="452.0" layoutY="448.0" prefHeight="168.0" prefWidth="530.0" text="---&gt;" textFill="#6b6a2d">
         <font>
-            <Font name="Bit Cell" size="96.0"/>
+            <Font name="Bit Cell" size="96.0" />
         </font>
     </Label>
-    <Label layoutX="370.0" layoutY="570.0" prefHeight="455.0" prefWidth="271.0" text="Controls:"
-           textFill="#171702">
+    <Label layoutX="370.0" layoutY="570.0" prefHeight="455.0" prefWidth="271.0" text="Controls:" textFill="#171702">
         <font>
-            <Font name="Bit Cell" size="60.0"/>
+            <Font name="Bit Cell" size="60.0" />
         </font>
     </Label>
-    <Label layoutX="371.0" layoutY="750.0" prefHeight="181.0" prefWidth="551.0"
-           text="Up/Down - rotate wheel" textFill="#6c6b2d">
+    <Label layoutX="371.0" layoutY="750.0" prefHeight="181.0" prefWidth="551.0" text="Up/Down - rotate wheel" textFill="#6c6b2d">
         <font>
-            <Font name="Bit Cell" size="58.0"/>
+            <Font name="Bit Cell" size="58.0" />
         </font>
     </Label>
-    <Label layoutX="371.0" layoutY="810.0" prefHeight="159.0" prefWidth="487.0"
-           text="Left/Right - set spin time" textFill="#6c6b2d">
+    <Label layoutX="371.0" layoutY="810.0" prefHeight="159.0" prefWidth="487.0" text="Left/Right - set spin time" textFill="#6c6b2d">
         <font>
-            <Font name="Bit Cell" size="58.0"/>
+            <Font name="Bit Cell" size="58.0" />
         </font>
     </Label>
 </AnchorPane>

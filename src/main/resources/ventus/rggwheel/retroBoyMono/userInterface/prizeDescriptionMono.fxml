@@ -19,7 +19,7 @@
             <Font name="Bit Cell" size="76.0"/>
         </font>
     </Label>
-    <Label fx:id="prize_label1" layoutX="669.0" layoutY="181.0" prefHeight="105.0" prefWidth="738.0"
+    <Label fx:id="prizeLabel" layoutX="669.0" layoutY="181.0" prefHeight="105.0" prefWidth="738.0"
            text="???" textFill="#6c6b2d">
         <font>
             <Font name="Bit Cell" size="76.0"/>
@@ -31,7 +31,7 @@
             <Font name="Bit Cell" size="80.0"/>
         </font>
     </Label>
-    <Label fx:id="effect_label1" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="388.0"
+    <Label fx:id="prizeDescription" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="388.0"
            layoutY="350.0" prefHeight="554.0" prefWidth="781.0" text="???" textFill="#6c6b2d"
            wrapText="true">
         <font>

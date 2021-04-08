@@ -1,21 +1,23 @@
 package ventus.rggwheel.model;
 
+import java.io.Serializable;
+
 public enum PrizeEnum {
-    ADD_GAME("Add Game", "Player adds one game"),
-    CHAT_PICK("Add Game", "Player adds one game"),
-    TREASURE("Add Game", "Player adds one game"),
-    LUCKY_SUB("Add Game", "Player adds one game"),
-    HELLO_KITTY("Add Game", "Player adds one game"),
-    HEADS_OR_TAILS("Add Game", "Player adds one game"),
-    DOUBLE("Add Game", "Player adds one game"),
-    CHAT_CONSOLE("Add Game", "Player adds one game"),
-    JUAN_OF_FIVE("Add Game", "Player adds one game"),
-    SPIN_AGAIN("Add Game", "Player adds one game"),
-    RESET("Add Game", "Player adds one game"),
-    MASTER("Add Game", "Player adds one game"),
-    MS_DOS("Add Game", "Player adds one game"),
-    POTION("Add Game", "Player adds one game"),
-    FIVE_HINTS("Add Game", "Player adds one game");
+    ADD_GAME("+ Game", "Player adds one game"),
+    CHAT_PICK("Chat Platform Choice", "Add one game to a specific remaining platform selected by the audience, if it happens to be the last platform then the player has to spin the wheel again"),
+    TREASURE("Golden Treasure Bag", "Bag The last donator chooses next game (current platform)."),
+    LUCKY_SUB("Golden Sub Bag", "The last subscriber chooses next game (current platform)."),
+    HELLO_KITTY("Cat in the Bag", "Next game will be chosen randomly from a list that includes all the games on each platform."),
+    HEADS_OR_TAILS("Heads or Tails", "Player makes a guess head or tail, then throw the coin. If he wins then one  game is subtracted, but if he loses then one game is added."),
+    DOUBLE("Super Wheel", "The player spins the wheel again but with multiplier by two effect."),
+    CHAT_CONSOLE("Chat Choice", "The player rolls next game in the generator and the audience can pick one from the 5 games shown on screen."),
+    JUAN_OF_FIVE("Juan of Five", "The player rolls next game in the generator and can pick one from the 5 games shown on screen."),
+    SPIN_AGAIN("Juan More Time", "The player spins the wheel one more time."),
+    RESET("Reset Incentives", "Subs and donation incentives goals on the current platform reset to starting value. (this includes current donations and subs points)."),
+    MASTER("Master Choice", "The next game is chosen by the player (current platform)."),
+    MS_DOS("MS-DOS", "This one is self-explanatory"),
+    POTION("Reroll Potion", "Item goes to inventory, when used the player can reroll the current game without any punishment."),
+    FIVE_HINTS("Consult Chat", "Item goes to inventory, when used audience spoilers will be allowed for the current game.");
 
     String name;
     String description;
@@ -23,5 +25,13 @@ public enum PrizeEnum {
     PrizeEnum(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

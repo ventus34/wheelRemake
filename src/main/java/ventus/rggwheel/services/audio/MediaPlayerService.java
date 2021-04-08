@@ -6,8 +6,8 @@ import javafx.animation.Timeline;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import ventus.rggwheel.App;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -27,9 +27,9 @@ public class MediaPlayerService {
 
     private Double GLOBAL_VOLUME = 0.2;
 
-    Map<String, Media> soundClipsMap = load("sound/clips");
-    Map<String, Media> sfxMap = load("sound/sfx");
-    Map<String, Media> musicMap = load("sound/music");
+    Map<String, Media> soundClipsMap = load("sound/clips/");
+    Map<String, Media> sfxMap = load("sound/sfx/");
+    Map<String, Media> musicMap = load("sound/music/");
 
     public MediaPlayerService() {
         players = new HashMap<>();
@@ -119,26 +119,19 @@ public class MediaPlayerService {
     }
 
     private Map<String, Media> load(String directoryPath) {
+        File mainDir = new File (System.getProperty("user.dir"));
         Map<String, Media> mediaMap = new HashMap<>();
         List<Path> result;
-        URL soundDirectory = App.class.getResource(directoryPath);
-        //todo fix jar
-        try (Stream<Path> walk = Files.walk(Paths.get(soundDirectory.toURI()))) {
+        try (Stream<Path> walk = Files.walk(Paths.get(mainDir.toURI().resolve(directoryPath)))) {
             result = walk.filter(Files::isRegularFile).collect(Collectors.toList());
             result.forEach(currentFilePath -> {
-                mediaMap.put(currentFilePath.getFileName().toString(), new Media(URIResolver(directoryPath, currentFilePath)));
+                mediaMap.put(currentFilePath.getFileName().toString(), new Media(currentFilePath.toUri().toString()));
             });
             return mediaMap;
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
         throw new IllegalStateException();
-    }
-
-    private String URIResolver(String directory, Path filePath) {
-        return App.class.getResource(directory + "/" + filePath.getFileName().toString()).toExternalForm();
     }
 
     private MediaPlayer getAudioPlayer(Media media) {

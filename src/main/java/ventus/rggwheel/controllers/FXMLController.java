@@ -4,7 +4,13 @@ import javafx.scene.layout.Pane;
 
 public abstract class FXMLController {
 
-    private Pane mainPane;
+    protected Pane mainPane;
+
+    protected RetroBoyController retroBoy;
+
+    public void setRetroBoy(RetroBoyController retroBoy) {
+        this.retroBoy = retroBoy;
+    }
 
     public void setMainPane(Pane mainPane) {
         this.mainPane = mainPane;

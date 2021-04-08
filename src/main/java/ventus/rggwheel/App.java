@@ -25,8 +25,6 @@ public class App extends Application {
         stage.setScene(scene);
         stage.show();
         RetroBoySizeHandlerService.resizeHandler(scene);
-        MediaPlayerService mediaPlayerService = new MediaPlayerService();
-//        mediaPlayerService.test();
     }
 
     static void setRoot(String fxml) throws IOException {

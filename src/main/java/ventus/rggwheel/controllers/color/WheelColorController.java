@@ -5,12 +5,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import ventus.rggwheel.controllers.WheelController;
-import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.utils.WheelUtils;
 
 public class WheelColorController extends WheelController {
     @FXML private Label spinTime;
     @FXML private ImageView wheelColor;
+
+    @FXML void initialize(){
+        wheelColor.setRotate(wheelColor.getRotate() + WheelUtils.getAngle()/2 + 7200);
+    }
 
     @Override
     public void setRotate(Double angle) {
@@ -23,4 +26,25 @@ public class WheelColorController extends WheelController {
         Duration duration = Duration.seconds(Integer.parseInt(label));
         spin(duration, wheelColor, WheelUtils.getRandomAngle());
     }
+
+    @Override
+    public void moveToNext() {
+        this.goToNext(wheelColor);
+    }
+
+    @Override
+    public void moveToPrevious() {
+        this.goBack(wheelColor);
+    }
+
+    @Override
+    public Label getSpinTime() {
+        return spinTime;
+    }
+
+    @Override
+    public void setSpinTime(Integer spinTime) {
+        this.spinTime.setText(spinTime.toString());
+    }
+
 }

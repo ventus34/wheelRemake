@@ -1,7 +1,8 @@
 package ventus.rggwheel.model;
 
 public enum ItemEnum {
-    Potion("Description");
+    Potion("Potion"),
+    Hints("Hints");
 
     String description;
 

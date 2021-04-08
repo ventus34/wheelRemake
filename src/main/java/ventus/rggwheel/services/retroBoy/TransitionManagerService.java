@@ -31,15 +31,20 @@ public class TransitionManagerService {
     }
 
     public void switchScene(){
-        availableScenes.get(currentMode).get(currentScene).hide();
-        if(currentScene < numberOfScenes - 1){
-            availableScenes.get(currentMode).get(++currentScene).show();
-        } else if (currentScene == numberOfScenes - 1){
-            currentScene = 0;
-            availableScenes.get(currentMode).get(currentScene).show();
-        } else {
-            throw new IllegalStateException("Scene doesnt exist");
+        if(currentScene==0){
+            availableScenes.get(currentMode).get(currentScene).hide();
+            currentScene = 1;
         }
+            availableScenes.get(currentMode).get(currentScene).hide();
+            if (currentScene < numberOfScenes - 1) {
+                availableScenes.get(currentMode).get(++currentScene).show();
+            } else if (currentScene == numberOfScenes - 1) {
+                currentScene = 2;
+                availableScenes.get(currentMode).get(currentScene).show();
+            } else {
+                throw new IllegalStateException("Scene doesnt exist");
+            }
+
 
     }
     public void switchMode(){
@@ -52,6 +57,18 @@ public class TransitionManagerService {
             currentMode = RetroBoyModesEnum.MONO;
             availableScenes.get(RetroBoyModesEnum.COLOR).get(currentScene).hide();
             availableScenes.get(RetroBoyModesEnum.MONO).get(currentScene).show();
+        }
+    }
+
+    public void checkAndBack(){
+        if(currentScene == 2) {
+            availableScenes.get(currentMode).get(currentScene).hide();
+            currentScene = 1;
+            availableScenes.get(currentMode).get(currentScene).show();
+        } else {
+            availableScenes.get(currentMode).get(currentScene).hide();
+            currentScene = 2;
+            availableScenes.get(currentMode).get(currentScene).show();
         }
     }
 

@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.retroBoy.RetroBoySizeHandlerService;
@@ -20,6 +21,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException, URISyntaxException {
+        Font.loadFont(getClass().getResourceAsStream("fonts/BitCell.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("fonts/emulogic.ttf"), 14);
         scene = new Scene(loadFXML("retroBoy"));
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setScene(scene);

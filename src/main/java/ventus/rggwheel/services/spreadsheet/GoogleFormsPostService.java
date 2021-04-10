@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -18,38 +17,40 @@ public class GoogleFormsPostService {
     }
 
     public static void savePrizeToSpreadsheet(String prizeName, String inventory) {
-        try {
-            URL url = new URL(forms);
-            URLConnection con = url.openConnection();
-            HttpURLConnection http = (HttpURLConnection) con;
-            con.setRequestProperty("User-Agent", "Java");
-            http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            http.setRequestMethod("POST");
-            http.setDoOutput(true);
-            http.connect();
-            byte[] postData = stateToPostParams(prizeName, inventory).getBytes(StandardCharsets.UTF_8);
-            try (var wr = new DataOutputStream(con.getOutputStream())) {
-                wr.write(postData);
-            }
-            StringBuilder content;
-
-            try (var br = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()))) {
-
-                String line;
-                content = new StringBuilder();
-
-                while ((line = br.readLine()) != null) {
-
-                    content.append(line);
-                    content.append(System.lineSeparator());
+        if (System.getProperty("user.name").equalsIgnoreCase("TMR")) {
+            try {
+                URL url = new URL(forms);
+                URLConnection con = url.openConnection();
+                HttpURLConnection http = (HttpURLConnection) con;
+                con.setRequestProperty("User-Agent", "Java");
+                http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                http.setRequestMethod("POST");
+                http.setDoOutput(true);
+                http.connect();
+                byte[] postData = stateToPostParams(prizeName, inventory).getBytes(StandardCharsets.UTF_8);
+                try (var wr = new DataOutputStream(con.getOutputStream())) {
+                    wr.write(postData);
                 }
-            }
+                StringBuilder content;
+
+                try (var br = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()))) {
+
+                    String line;
+                    content = new StringBuilder();
+
+                    while ((line = br.readLine()) != null) {
+
+                        content.append(line);
+                        content.append(System.lineSeparator());
+                    }
+                }
 
 //            System.out.println(content.toString());
-            http.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
+                http.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

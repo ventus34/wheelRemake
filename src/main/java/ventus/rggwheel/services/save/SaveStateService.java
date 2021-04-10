@@ -19,7 +19,7 @@ public class SaveStateService {
 
     public void loadState() {
         try {
-            FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/saves/" +System.getProperty("user.name") + ".save2");
+            FileInputStream fileIn = new FileInputStream(System.getProperty("user.dir") + "/saves/" +System.getProperty("user.name") + ".save");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this.currentState = (SaveState) in.readObject();
             in.close();

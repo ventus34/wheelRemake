@@ -74,6 +74,7 @@ public abstract class WheelController extends FXMLController {
             GoogleFormsPostService.savePrizeToSpreadsheet(currentPrize.getName(), "Hints: " + hints + "; Potions: " + potions);
             retroBoy.save();
             retroBoy.setPrizeDesc(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360));
+            retroBoy.checkPrize();
         });
         rotation.play();
         mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");

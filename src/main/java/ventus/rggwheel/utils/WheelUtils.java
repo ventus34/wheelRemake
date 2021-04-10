@@ -36,6 +36,10 @@ public class WheelUtils {
     }
 
     public static double getRandomAngle(){
-        return rng.nextDouble() + rng.nextInt(360)  + 360 * (rng.nextInt(10) + 10 );
+        return rng.nextDouble() + rng.nextInt(360)  + 360 * (rng.nextInt(10) + 10);
+    }
+
+    public static double getRandomAngle(int spinTime){
+        return rng.nextDouble() + rng.nextInt(360)  + spinTime * 360;
     }
 }

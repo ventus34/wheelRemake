@@ -24,7 +24,7 @@ public class WheelColorController extends WheelController {
     public void spinWheel(){
         String label = spinTime.getText();
         Duration duration = Duration.seconds(Integer.parseInt(label));
-        spin(duration, wheelColor, WheelUtils.getRandomAngle());
+        spin(duration, wheelColor, WheelUtils.getRandomAngle(Integer.parseInt(label)));
     }
 
     @Override

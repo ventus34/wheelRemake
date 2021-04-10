@@ -84,7 +84,7 @@ public abstract class WheelController extends FXMLController {
         RotateTransition rotation = new RotateTransition(
                 Duration.millis(300),
                 wheel);
-        rotation.setByAngle(WheelUtils.getAngle());
+        rotation.setToAngle(wheel.getRotate() + 3 * WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle());
         rotation.setCycleCount(1);
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);
@@ -99,7 +99,7 @@ public abstract class WheelController extends FXMLController {
         RotateTransition rotation = new RotateTransition(
                 Duration.millis(300),
                 wheel);
-        rotation.setByAngle(-WheelUtils.getAngle());
+        rotation.setToAngle(wheel.getRotate() - WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle());
         rotation.setCycleCount(1);
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);

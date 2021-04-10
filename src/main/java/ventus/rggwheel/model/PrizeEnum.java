@@ -4,13 +4,13 @@ import java.io.Serializable;
 
 public enum PrizeEnum {
     ADD_GAME("+ Game", "Player adds one game"),
-    CHAT_PICK("Chat Platform Choice", "Add one game to a specific remaining platform selected by the audience, if it happens to be the last platform then the player has to spin the wheel again"),
+    CHAT_PICK("Chat Pick", "The player rolls next game in the generator and the audience can pick one from the 5 games shown on screen."),
     TREASURE("Golden Treasure Bag", "Bag The last donator chooses next game (current platform)."),
     LUCKY_SUB("Golden Sub Bag", "The last subscriber chooses next game (current platform)."),
     HELLO_KITTY("Cat in the Bag", "Next game will be chosen randomly from a list that includes all the games on each platform."),
     HEADS_OR_TAILS("Heads or Tails", "Player makes a guess head or tail, then throw the coin. If he wins then one  game is subtracted, but if he loses then one game is added."),
     DOUBLE("Super Wheel", "The player spins the wheel again but with multiplier by two effect."),
-    CHAT_CONSOLE("Chat Choice", "The player rolls next game in the generator and the audience can pick one from the 5 games shown on screen."),
+    CHAT_CONSOLE("Chat Console", "Add one game to a specific remaining platform selected by the audience, if it happens to be the last platform then the player has to spin the wheel again"),
     JUAN_OF_FIVE("Juan of Five", "The player rolls next game in the generator and can pick one from the 5 games shown on screen."),
     SPIN_AGAIN("Juan More Time", "The player spins the wheel one more time."),
     RESET("Reset Incentives", "Subs and donation incentives goals on the current platform reset to starting value. (this includes current donations and subs points)."),

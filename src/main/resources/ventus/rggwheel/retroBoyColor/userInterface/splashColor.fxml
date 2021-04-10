@@ -29,13 +29,13 @@
             </LinearGradient>
         </textFill>
     </Label>
-    <Label layoutX="375.0" layoutY="741.0" opacity="0.67" prefHeight="241.0" prefWidth="913.0"
+    <Label layoutX="375.0" layoutY="741.0" opacity="0.20" prefHeight="241.0" prefWidth="913.0"
            text="Code: Ventus34" textFill="#101010">
         <font>
             <Font name="Bit Cell" size="35.0"/>
         </font>
     </Label>
-    <Label layoutX="376.0" layoutY="798.0" opacity="0.68" prefHeight="184.0" prefWidth="929.0"
+    <Label layoutX="376.0" layoutY="798.0" opacity="0.20" prefHeight="184.0" prefWidth="929.0"
            text="Layout created by Freepik" textFill="#101010">
         <font>
             <Font name="Bit Cell" size="35.0"/>

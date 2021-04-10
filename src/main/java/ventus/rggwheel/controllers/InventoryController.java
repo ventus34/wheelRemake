@@ -1,37 +1,38 @@
 package ventus.rggwheel.controllers;
 
-import javafx.fxml.FXML;
+import ventus.rggwheel.model.ItemEnum;
+import ventus.rggwheel.services.spreadsheet.GoogleFormsPostService;
+
+import java.util.Map;
 
 public abstract class InventoryController extends FXMLController {
-    @FXML
-    private void addInv() {
+    private InventoryController oppositeModeController;
+
+    public InventoryController getOppositeModeController() {
+        return oppositeModeController;
     }
 
-    @FXML
-    private void useInv() {
+    public void setOppositeModeController(InventoryController oppositeModeController) {
+        this.oppositeModeController = oppositeModeController;
     }
 
-    @FXML
-    private void addHint() {
+    public void add(ItemEnum item) {
+        Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
+        inventory.replace(item, inventory.get(item) + 1);
+        System.out.println("Added 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+        retroBoy.save();
     }
 
-    @FXML
-    private void useChat() {
+    public void substract(ItemEnum item) {
+        Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
+        inventory.replace(item, inventory.get(item)- 1);
+        System.out.println("Substracted 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+        GoogleFormsPostService.savePrizeToSpreadsheet("Used " + item.getDescription(), "Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+        retroBoy.save();
     }
 
-    @FXML
-    private void useHint() {
-    }
+    abstract public void setRerollLabel();
 
-    @FXML
-    private void addChat() {
-    }
+    abstract public void setHintLabel();
 
-    @FXML
-    private void addReroll() {
-    }
-
-    @FXML
-    private void useReroll() {
-    }
 }

@@ -122,7 +122,7 @@ public class RetroBoyController {
         colorScenesControllers.add(splashColorController);
         colorScenesControllers.add(prizeDescriptionColorController);
         colorScenesControllers.add(wheelColorController);
-//        colorScenesControllers.add(inventoryColorController);
+        colorScenesControllers.add(inventoryColorController);
 //        colorScenesControllers.add(prizesHistoryColorController);
 //        colorScenesControllers.add(statisticsColorController);
         
@@ -130,7 +130,7 @@ public class RetroBoyController {
         monoScenesControllers.add(splashMonoController);
         monoScenesControllers.add(prizeDescriptionMonoController);
         monoScenesControllers.add(wheelMonoController);
-//        monoScenesControllers.add(inventoryMonoController);
+        monoScenesControllers.add(inventoryMonoController);
 //        monoScenesControllers.add(prizesHistoryMonoController);
 //        monoScenesControllers.add(statisticsMonoController);
 
@@ -141,6 +141,8 @@ public class RetroBoyController {
         wheelMonoController.setMediaPlayerService(mediaPlayerService);
         wheelColorController.setOppositeModeController(wheelMonoController);
         wheelMonoController.setOppositeModeController(wheelColorController);
+        inventoryColorController.setOppositeModeController(inventoryMonoController);
+        inventoryMonoController.setOppositeModeController(inventoryColorController);
 
         buttons = new HashSet<>();
         buttons.add(speedUp);
@@ -154,6 +156,10 @@ public class RetroBoyController {
         buttons.add(spinButton);
 
         saveStateService = new SaveStateService();
+        inventoryMonoController.setHintLabel();
+        inventoryColorController.setHintLabel();
+        inventoryMonoController.setRerollLabel();
+        inventoryColorController.setRerollLabel();
         unlockButtons();
     }
 

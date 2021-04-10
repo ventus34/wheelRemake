@@ -14,7 +14,7 @@
             <Font name="Bit Cell" size="80.0" />
         </font>
     </Label>
-    <Label fx:id="spinTime" layoutX="627.0" layoutY="177.0" prefHeight="105.0" prefWidth="247.0" text="10" textFill="#6c6b2d">
+    <Label fx:id="spinTime" layoutX="627.0" layoutY="177.0" prefHeight="105.0" prefWidth="247.0" text="10" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="80.0" />
         </font>
@@ -29,12 +29,12 @@
             <Font name="Bit Cell" size="60.0" />
         </font>
     </Label>
-    <Label layoutX="371.0" layoutY="750.0" prefHeight="181.0" prefWidth="551.0" text="Up/Down - rotate wheel" textFill="#6c6b2d">
+    <Label layoutX="371.0" layoutY="750.0" prefHeight="181.0" prefWidth="551.0" text="Up/Down - rotate wheel" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="58.0" />
         </font>
     </Label>
-    <Label layoutX="371.0" layoutY="810.0" prefHeight="159.0" prefWidth="487.0" text="Left/Right - set spin time" textFill="#6c6b2d">
+    <Label layoutX="371.0" layoutY="810.0" prefHeight="159.0" prefWidth="487.0" text="Left/Right - set spin time" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="58.0" />
         </font>

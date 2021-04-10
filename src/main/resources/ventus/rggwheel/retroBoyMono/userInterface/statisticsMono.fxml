@@ -20,7 +20,7 @@
                pickOnBounds="true" preserveRatio="true">
         <Image url="@../graphics/old_wheel_mono.png"/>
     </ImageView>
-    <Label layoutX="338.0" layoutY="6.0" text="Stats" textAlignment="CENTER" textFill="#4a490f">
+    <Label layoutX="338.0" layoutY="6.0" text="Stats" textAlignment="CENTER" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="96.0"/>
         </font>
@@ -30,7 +30,7 @@
             <Font name="Bit Cell" size="55.0"/>
         </font>
     </Label>
-    <Label fx:id="ps2_mono" layoutX="163.0" layoutY="209.0" text="2x" textFill="#6c6b2d">
+    <Label fx:id="ps2_mono" layoutX="163.0" layoutY="209.0" text="2x" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="55.0"/>
         </font>
@@ -40,7 +40,7 @@
             <Font name="Bit Cell" size="55.0"/>
         </font>
     </Label>
-    <Label fx:id="ps4_mono" layoutX="317.0" layoutY="104.0" text="1x" textFill="#6c6b2d">
+    <Label fx:id="ps4_mono" layoutX="317.0" layoutY="104.0" text="1x" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="55.0"/>
         </font>
@@ -111,13 +111,13 @@
         </font>
     </Label>
     <Label layoutX="9.0" layoutY="653.0" text="Total amount of spins:" textAlignment="CENTER"
-           textFill="#4a490f">
+           textFill="#214236">
         <font>
             <Font name="Bit Cell" size="68.0"/>
         </font>
     </Label>
     <Label fx:id="total_mono" layoutX="483.0" layoutY="646.0" prefHeight="77.0" prefWidth="282.0"
-           text="21" textAlignment="CENTER" textFill="#6c6b2d">
+           text="21" textAlignment="CENTER" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="68.0"/>
         </font>

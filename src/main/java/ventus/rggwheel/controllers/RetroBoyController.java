@@ -202,7 +202,7 @@ public class RetroBoyController {
     }
 
     @FXML
-    private void checkPrize() {
+    public void checkPrize() {
         transitionManagerService.checkAndBack();
     }
 

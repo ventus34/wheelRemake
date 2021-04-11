@@ -17,7 +17,6 @@ public abstract class WheelController extends FXMLController {
     private MediaPlayerService mediaPlayerService;
     private WheelController oppositeModeController;
     static boolean isFadeoutSet = false;
-    private int multiplier = 1;
 
     public void setMediaPlayerService(MediaPlayerService mediaPlayerService) {
         this.mediaPlayerService = mediaPlayerService;
@@ -30,10 +29,12 @@ public abstract class WheelController extends FXMLController {
     public abstract void spinWheel();
     public abstract void moveToNext();
     public abstract void moveToPrevious();
+    public abstract void randomizer();
     public abstract Label getSpinTime();
     public abstract void setSpinTime(Integer spinTime);
 
     protected void spin(Duration spinTime, ImageView wheel, Double spinAngle) {
+        double spinTimeInSeconds = spinTime.toSeconds();
         isFadeoutSet = false;
         retroBoy.lockButtons();
         RotateTransition rotation = new RotateTransition(
@@ -46,7 +47,7 @@ public abstract class WheelController extends FXMLController {
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);
         rotation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isFadeoutSet && spinTime.subtract(newValue).toSeconds() <= MUSIC_FADEOUT_TIME + MUSIC_FADEOUT_TIME_OFFSET) {
+            if (!isFadeoutSet && spinTimeInSeconds > 9 && spinTime.subtract(newValue).toSeconds() <= MUSIC_FADEOUT_TIME + MUSIC_FADEOUT_TIME_OFFSET) {
                 mediaPlayerService.fadeout(MediaPlayerService.AudioPlayerEnum.MUSIC, MUSIC_FADEOUT_TIME);
                 isFadeoutSet = true;
             }
@@ -57,19 +58,22 @@ public abstract class WheelController extends FXMLController {
             retroBoy.unlockButtons();
             retroBoy.getProgress().getPrizesHistory().add(currentPrize);
             if(currentPrize.equals(PrizeEnum.DOUBLE)) {
-                multiplier = multiplier * 2;
+                WheelUtils.wheelMultiplier = WheelUtils.wheelMultiplier * 2;
             } else {
-                multiplier = 1;
+                WheelUtils.wheelMultiplier = 1;
             }
             Integer potions = retroBoy.getProgress().getInventory().get(ItemEnum.Potion);
             Integer hints = retroBoy.getProgress().getInventory().get(ItemEnum.Hints);
+            System.out.println(currentPrize);
             if(currentPrize.equals(PrizeEnum.POTION)){
-                potions = potions + multiplier;
+                potions = potions + WheelUtils.wheelMultiplier;
                 retroBoy.getProgress().getInventory().replace(ItemEnum.Potion, potions);
+                retroBoy.updateInventory();
             }
             if(currentPrize.equals(PrizeEnum.FIVE_HINTS)){
-                hints = hints + 5 * multiplier;
+                hints = hints + 5 * WheelUtils.wheelMultiplier;
                 retroBoy.getProgress().getInventory().replace(ItemEnum.Hints, hints);
+                retroBoy.updateInventory();
             }
             GoogleFormsPostService.savePrizeToSpreadsheet(currentPrize.getName(), "Hints: " + hints + "; Potions: " + potions);
             retroBoy.save();
@@ -77,29 +81,35 @@ public abstract class WheelController extends FXMLController {
             retroBoy.checkPrize();
         });
         rotation.play();
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");
+        if(spinTime.toSeconds() > 9) mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");
     }
 
     protected void goToNext(ImageView wheel) {
-        RotateTransition rotation = new RotateTransition(
-                Duration.millis(300),
-                wheel);
-        rotation.setToAngle(wheel.getRotate() + 3 * WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle());
-        rotation.setCycleCount(1);
-        rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
-        rotation.setAutoReverse(false);
-        rotation.setOnFinished(e -> {
-            oppositeModeController.setRotate(wheel.getRotate());
-            retroBoy.setPrizeDesc(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360));
-        });
-        rotation.play();
+        double destination = wheel.getRotate() + 3 * WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle();
+        rotationAnimation(wheel, destination);
     }
 
     protected void goBack(ImageView wheel) {
+        double destination = wheel.getRotate() - WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle();
+        rotationAnimation(wheel, destination);
+    }
+
+    protected void goToRandomPrize(ImageView wheel){
+        double destination = wheel.getRotate() + WheelUtils.getRandomAngle(1) ;
+        rotationAnimation(wheel, destination);
+    }
+
+    protected void setRandomTime(){
+        int randomTime = WheelUtils.getRandomTime();
+        setSpinTime(randomTime);
+        oppositeModeController.setSpinTime(randomTime);
+    }
+
+    private void rotationAnimation(ImageView wheel, double destination) {
         RotateTransition rotation = new RotateTransition(
                 Duration.millis(300),
                 wheel);
-        rotation.setToAngle(wheel.getRotate() - WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle());
+        rotation.setToAngle(destination);
         rotation.setCycleCount(1);
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);

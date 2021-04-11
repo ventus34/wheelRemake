@@ -60,16 +60,20 @@ public class TransitionManagerService {
         }
     }
 
-    public void checkAndBack(){
+    public boolean checkAndBack(){
+        boolean isCheckScreen;
         if(currentScene == 2) {
             availableScenes.get(currentMode).get(currentScene).hide();
             currentScene = 1;
             availableScenes.get(currentMode).get(currentScene).show();
+            isCheckScreen = true;
         } else {
             availableScenes.get(currentMode).get(currentScene).hide();
             currentScene = 2;
             availableScenes.get(currentMode).get(currentScene).show();
+            isCheckScreen = false;
         }
+        return isCheckScreen;
     }
 
     public RetroBoyModesEnum getCurrentMode() {

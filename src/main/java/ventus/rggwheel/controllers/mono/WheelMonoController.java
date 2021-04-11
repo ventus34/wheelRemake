@@ -46,4 +46,11 @@ public class WheelMonoController extends WheelController {
     public void setSpinTime(Integer spinTime) {
         this.spinTime.setText(spinTime.toString());
     }
+
+    @Override
+    public void randomizer() {
+        goToRandomPrize(wheelMono);
+        setRandomTime();
+    }
+
 }

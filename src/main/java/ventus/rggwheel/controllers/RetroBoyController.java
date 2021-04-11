@@ -1,8 +1,10 @@
 package ventus.rggwheel.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import ventus.rggwheel.RetroBoyModesEnum;
@@ -36,59 +38,93 @@ public class RetroBoyController {
     @FXML
     private ImageView backgroundColor;
 
-    @FXML private Button speedUp;
-    @FXML private Button speedDown;
-    @FXML private Button timeUp;
-    @FXML private Button timeDown;
-    @FXML private Button startButton;
-    @FXML private Button color;
-    @FXML private Button check;
-    @FXML private Button colorMode;
-    @FXML private Button spinButton;
+    @FXML
+    private Button speedUp;
+    @FXML
+    private Button speedDown;
+    @FXML
+    private Button timeUp;
+    @FXML
+    private Button timeDown;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button color;
+    @FXML
+    private Button check;
+    @FXML
+    private Button colorMode;
+    @FXML
+    private Button spinButton;
 
     private Set<Button> buttons;
 
     //Inventory
-    @FXML private Pane inventoryMono;
-    @FXML private InventoryMonoController inventoryMonoController;
-    @FXML private Pane inventoryColor;
-    @FXML private InventoryColorController inventoryColorController;
+    @FXML
+    private Pane inventoryMono;
+    @FXML
+    private InventoryMonoController inventoryMonoController;
+    @FXML
+    private Pane inventoryColor;
+    @FXML
+    private InventoryColorController inventoryColorController;
 
     //Splash screen
-    @FXML private AnchorPane splashMono;
-    @FXML private AnchorPane splashColor;
-    @FXML private SplashColorController splashColorController;
-    @FXML private SplashMonoController splashMonoController;
+    @FXML
+    private AnchorPane splashMono;
+    @FXML
+    private AnchorPane splashColor;
+    @FXML
+    private SplashColorController splashColorController;
+    @FXML
+    private SplashMonoController splashMonoController;
 
     //Statistics
-    @FXML private Pane statisticsColor;
-    @FXML private StatisticsColorController statisticsColorController;
-    @FXML private Pane statisticsMono;
-    @FXML private StatisticsMonoController statisticsMonoController;
+    @FXML
+    private Pane statisticsColor;
+    @FXML
+    private StatisticsColorController statisticsColorController;
+    @FXML
+    private Pane statisticsMono;
+    @FXML
+    private StatisticsMonoController statisticsMonoController;
 
     //Prizes descriptions
-    @FXML private AnchorPane prizeDescriptionColor;
-    @FXML private PrizeDescriptionColorController prizeDescriptionColorController;
-    @FXML private AnchorPane prizeDescriptionMono;
-    @FXML private PrizeDescriptionMonoController prizeDescriptionMonoController;
+    @FXML
+    private AnchorPane prizeDescriptionColor;
+    @FXML
+    private PrizeDescriptionColorController prizeDescriptionColorController;
+    @FXML
+    private AnchorPane prizeDescriptionMono;
+    @FXML
+    private PrizeDescriptionMonoController prizeDescriptionMonoController;
 
     //Prizes history
-    @FXML private Pane prizesHistoryColor;
-    @FXML private PrizesHistoryColorController prizesHistoryColorController;
-    @FXML private Pane prizesHistoryMono;
-    @FXML private PrizesHistoryMonoController prizesHistoryMonoController;
-    
+    @FXML
+    private Pane prizesHistoryColor;
+    @FXML
+    private PrizesHistoryColorController prizesHistoryColorController;
+    @FXML
+    private Pane prizesHistoryMono;
+    @FXML
+    private PrizesHistoryMonoController prizesHistoryMonoController;
+
     //Wheel
-    @FXML private AnchorPane wheelMono;
-    @FXML private WheelMonoController wheelMonoController;
-    @FXML private AnchorPane wheelColor;
-    @FXML private WheelColorController wheelColorController;
+    @FXML
+    private AnchorPane wheelMono;
+    @FXML
+    private WheelMonoController wheelMonoController;
+    @FXML
+    private AnchorPane wheelColor;
+    @FXML
+    private WheelColorController wheelColorController;
 
     private TransitionManagerService transitionManagerService;
     private final MediaPlayerService mediaPlayerService = new MediaPlayerService();
     private SaveStateService saveStateService;
+    private boolean isAfterSplashScreen = false;
 
-    public void initialize(){
+    public void initialize() {
         //Binding root panes
         splashMonoController.setMainPane(splashMono);
         splashColorController.setMainPane(splashColor);
@@ -115,7 +151,7 @@ public class RetroBoyController {
         prizesHistoryColorController.setRetroBoy(this);
         wheelMonoController.setRetroBoy(this);
         wheelColorController.setRetroBoy(this);
-        
+
         //Binding controllers to transitionManager;
         //Order of controllers in list defines, transitions order;
         ArrayList<FXMLController> colorScenesControllers = new ArrayList<>();
@@ -125,7 +161,7 @@ public class RetroBoyController {
         colorScenesControllers.add(inventoryColorController);
 //        colorScenesControllers.add(prizesHistoryColorController);
 //        colorScenesControllers.add(statisticsColorController);
-        
+
         ArrayList<FXMLController> monoScenesControllers = new ArrayList<>();
         monoScenesControllers.add(splashMonoController);
         monoScenesControllers.add(prizeDescriptionMonoController);
@@ -165,7 +201,7 @@ public class RetroBoyController {
 
     @FXML
     private void spinAction() {
-        if(transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)){
+        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.spinWheel();
         } else {
             wheelMonoController.spinWheel();
@@ -174,7 +210,7 @@ public class RetroBoyController {
 
     @FXML
     private void moveUp() {
-        if(transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)){
+        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.moveToNext();
         } else {
             wheelMonoController.moveToNext();
@@ -183,7 +219,7 @@ public class RetroBoyController {
 
     @FXML
     private void moveDown() {
-        if(transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)){
+        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.moveToPrevious();
         } else {
             wheelMonoController.moveToPrevious();
@@ -201,7 +237,7 @@ public class RetroBoyController {
     @FXML
     private void timeDown() {
         Integer time = Integer.valueOf(wheelColorController.getSpinTime().getText());
-        if(time>10) {
+        if (time > 1) {
             wheelColorController.setSpinTime(--time);
             wheelMonoController.setSpinTime(time);
         }
@@ -209,7 +245,7 @@ public class RetroBoyController {
 
     @FXML
     public void checkPrize() {
-        transitionManagerService.checkAndBack();
+        spinButton.setDisable(transitionManagerService.checkAndBack());
     }
 
     @FXML
@@ -222,9 +258,17 @@ public class RetroBoyController {
     }
 
     @FXML
-    private void start() throws IOException {
+    private void start() {
         transitionManagerService.switchScene();
         mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
+        if(!isAfterSplashScreen){
+            initWhenRetroBoyVisible();
+        }
+        spinButton.setDisable(false);
+    }
+
+    private void initWhenRetroBoyVisible() {
+        setKeyListeners();
     }
 
     @FXML
@@ -238,23 +282,46 @@ public class RetroBoyController {
 
     }
 
-    public SaveState getProgress(){
+    public SaveState getProgress() {
         return saveStateService.getCurrentState();
     }
 
-    public void save(){
+    public void save() {
         saveStateService.saveState();
     }
 
-    void lockButtons(){
+    void lockButtons() {
         buttons.forEach(button -> button.setDisable(true));
     }
-    void unlockButtons(){
+
+    void unlockButtons() {
         buttons.forEach(button -> button.setDisable(false));
     }
 
     public void setPrizeDesc(PrizeEnum indicatedPrize) {
         prizeDescriptionColorController.setDescription(indicatedPrize.getName(), indicatedPrize.getDescription());
         prizeDescriptionMonoController.setDescription(indicatedPrize.getName(), indicatedPrize.getDescription());
+    }
+
+    private void setKeyListeners() {
+        Scene currentScene = retroBoyPane.getScene();
+        currentScene.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.R) {
+                switch (transitionManagerService.getCurrentMode()) {
+                    case MONO:
+                        wheelColorController.randomizer();
+                    case COLOR:
+                        wheelMonoController.randomizer();
+                        break;
+                }
+            }
+        });
+    }
+
+    public void updateInventory() {
+        inventoryMonoController.setRerollLabel();
+        inventoryColorController.setRerollLabel();
+        inventoryMonoController.setHintLabel();
+        inventoryColorController.setHintLabel();
     }
 }

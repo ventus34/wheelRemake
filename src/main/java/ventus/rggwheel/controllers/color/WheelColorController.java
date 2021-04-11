@@ -47,4 +47,10 @@ public class WheelColorController extends WheelController {
         this.spinTime.setText(spinTime.toString());
     }
 
+    @Override
+    public void randomizer() {
+        goToRandomPrize(wheelColor);
+        setRandomTime();
+    }
+
 }

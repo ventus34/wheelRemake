@@ -16,7 +16,9 @@ public class WheelUtils {
 
     private static final double angleOfPrizeCenter = numberOfPrizes/2.00;
 
-    private static final Random rng = new Random();
+    public static int wheelMultiplier = 1;
+
+    private static final Random rng = new Random(System.currentTimeMillis());
 
     public static Double getAngle(){
         return WHEEL_ANGLE/numberOfPrizes;
@@ -36,10 +38,17 @@ public class WheelUtils {
     }
 
     public static double getRandomAngle(){
-        return rng.nextDouble() + rng.nextInt(360)  + 360 * (rng.nextInt(10) + 10);
+        return rng.nextDouble() + rng.nextInt(360) + (180 - rng.nextInt(180) - rng.nextDouble())  + 360 * (rng.nextInt(10) + 10);
     }
 
     public static double getRandomAngle(int spinTime){
-        return rng.nextDouble() + rng.nextInt(360)  + spinTime * 360;
+        return rng.nextDouble() + rng.nextInt(360)  + (180 - rng.nextInt(180) - rng.nextDouble()) + spinTime * 360 + spinTime * rng.nextDouble();
+    }
+    
+    public static int getRandomNumberOfPrize(){
+        return rng.nextInt(numberOfPrizes) + 1;
+    }
+    public static int getRandomTime(){
+        return rng.nextInt(89) + 10;
     }
 }

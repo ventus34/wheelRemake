@@ -16,6 +16,7 @@ import ventus.rggwheel.controllers.color.*;
 import ventus.rggwheel.controllers.mono.*;
 import ventus.rggwheel.services.save.SaveStateService;
 import ventus.rggwheel.utils.ColorUtils;
+import ventus.rggwheel.utils.WheelUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -307,11 +308,16 @@ public class RetroBoyController {
         Scene currentScene = retroBoyPane.getScene();
         currentScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.R) {
+                if(WheelUtils.getRandomBoolean()){
+                    transitionManagerService.switchMode();
+                }
+                ColorUtils.changeToRandomColor(retroBoyPane);
                 switch (transitionManagerService.getCurrentMode()) {
                     case MONO:
-                        wheelColorController.randomizer();
-                    case COLOR:
                         wheelMonoController.randomizer();
+                        break;
+                    case COLOR:
+                        wheelColorController.randomizer();
                         break;
                 }
             }

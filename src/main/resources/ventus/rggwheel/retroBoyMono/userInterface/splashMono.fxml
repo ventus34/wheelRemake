@@ -21,13 +21,13 @@
             <Font name="Bit Cell" size="150.0"/>
         </font>
     </Label>
-    <Label layoutX="375.0" layoutY="741.0" opacity="0.15" prefHeight="241.0" prefWidth="1035.0"
+    <Label layoutX="375.0" layoutY="741.0" opacity="0.08" prefHeight="241.0" prefWidth="1035.0"
            text="Code: Ventus34" textFill="#101010">
         <font>
             <Font name="Bit Cell" size="29.0"/>
         </font>
     </Label>
-    <Label layoutX="375.0" layoutY="798.0" opacity="0.15" prefHeight="181.0" prefWidth="619.0"
+    <Label layoutX="375.0" layoutY="798.0" opacity="0.08" prefHeight="181.0" prefWidth="619.0"
            text="Layout created by Freepik" textFill="#101010">
         <font>
             <Font name="Bit Cell" size="29.0"/>

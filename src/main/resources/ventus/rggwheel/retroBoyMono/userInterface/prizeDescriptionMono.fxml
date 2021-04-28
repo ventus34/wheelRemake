@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <AnchorPane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ventus.rggwheel.controllers.mono.PrizeDescriptionMonoController"
-      opacity="0.0" prefHeight="200.0" prefWidth="200.0">
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ventus.rggwheel.controllers.mono.PrizeDescriptionMonoController"
+            opacity="0.0" prefHeight="200.0" prefWidth="200.0">
     <Label alignment="TOP_LEFT" layoutX="386.0" layoutY="196.0" prefHeight="92.0" prefWidth="644.0"
            text="Your prize:" textFill="#171702">
         <font>

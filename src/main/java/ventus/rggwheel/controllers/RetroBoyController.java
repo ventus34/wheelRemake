@@ -18,7 +18,6 @@ import ventus.rggwheel.services.save.SaveStateService;
 import ventus.rggwheel.utils.ColorUtils;
 import ventus.rggwheel.utils.WheelUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -250,10 +249,6 @@ public class RetroBoyController {
     }
 
     @FXML
-    private void reset() {
-    }
-
-    @FXML
     private void pickColor() {
         ColorUtils.changeBackgroundColor(retroBoyPane);
     }
@@ -266,6 +261,7 @@ public class RetroBoyController {
             initWhenRetroBoyVisible();
         }
         spinButton.setDisable(false);
+        isAfterSplashScreen = true;
     }
 
     private void initWhenRetroBoyVisible() {
@@ -276,11 +272,6 @@ public class RetroBoyController {
     private void switchMode() {
         transitionManagerService.switchMode();
         mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
-    }
-
-    @FXML
-    private void generateStats() {
-
     }
 
     public SaveState getProgress() {

@@ -4,7 +4,7 @@ public enum ItemEnum {
     Potion("Potion"),
     Hints("Hint");
 
-    String description;
+    final String description;
 
     ItemEnum(String description) {
         this.description = description;

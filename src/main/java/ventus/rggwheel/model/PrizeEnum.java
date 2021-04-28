@@ -1,7 +1,5 @@
 package ventus.rggwheel.model;
 
-import java.io.Serializable;
-
 public enum PrizeEnum {
     ADD_GAME("+ Game", "Add one game on current platform."),
     CHAT_PICK("Chat Pick", "The player rolls “next game” in the generator and the audience can pick one from the 5 games shown on screen."),
@@ -19,8 +17,8 @@ public enum PrizeEnum {
     POTION("Reroll Potion", "Item goes to inventory, when used the player can reroll the current game without any punishment."),
     FIVE_HINTS("Consult Chat", "Item goes to inventory, when used audience spoilers will be allowed for the current game.");
 
-    String name;
-    String description;
+    final String name;
+    final String description;
 
     PrizeEnum(String name, String description) {
         this.name = name;

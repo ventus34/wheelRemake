@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
 <AnchorPane xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ventus.rggwheel.controllers.color.PrizeDescriptionColorController"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ventus.rggwheel.controllers.color.PrizeDescriptionColorController"
             opacity="0.0" prefHeight="200.0" prefWidth="200.0">
     <Label alignment="TOP_LEFT" layoutX="387.0" layoutY="197.0" prefHeight="92.0" prefWidth="756.0"
            text="Your prize:">

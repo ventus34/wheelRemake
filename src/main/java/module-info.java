@@ -2,7 +2,6 @@ module rggwheel {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
-    requires jdk.zipfs;
 
     opens ventus.rggwheel to javafx.fxml;
     opens ventus.rggwheel.controllers to javafx.fxml;
@@ -12,4 +11,5 @@ module rggwheel {
     exports ventus.rggwheel;
     exports ventus.rggwheel.controllers;
     exports ventus.rggwheel.model;
+    exports ventus.rggwheel.services.audio;
 }

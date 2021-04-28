@@ -9,8 +9,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,11 +22,10 @@ public class MediaPlayerService {
         MUSIC, SOUND_CLIPS, SFX
     }
 
-    private Double GLOBAL_VOLUME = 0.2;
+    private final Double GLOBAL_VOLUME = 0.2;
 
     Map<String, Media> soundClipsMap = load("sound/clips/");
     Map<String, Media> sfxMap = load("sound/sfx/");
-    Map<String, Media> musicMap = load("sound/music/");
     Map<String, Media> lessThanFiveSecondsMap = load("sound/music/5s");
     Map<String, Media> lessThanTenSecondsMap = load("sound/music/10s");
     Map<String, Media> lessThanThirtySecondsMap = load("sound/music/30s");
@@ -131,24 +128,13 @@ public class MediaPlayerService {
         }
     }
 
-    public MediaPlayer getPlayer(AudioPlayerEnum player) {
-        try {
-            return players.get(player);
-        } catch (NullPointerException e) {
-            System.out.println("Player has not been initialized");
-        }
-        return null;
-    }
-
     private Map<String, Media> load(String directoryPath) {
         File mainDir = new File (System.getProperty("user.dir"));
         Map<String, Media> mediaMap = new HashMap<>();
         List<Path> result;
         try (Stream<Path> walk = Files.walk(Paths.get(mainDir.toURI().resolve(directoryPath)))) {
             result = walk.filter(Files::isRegularFile).collect(Collectors.toList());
-            result.forEach(currentFilePath -> {
-                mediaMap.put(currentFilePath.getFileName().toString(), new Media(currentFilePath.toUri().toString()));
-            });
+            result.forEach(currentFilePath -> mediaMap.put(currentFilePath.getFileName().toString(), new Media(currentFilePath.toUri().toString())));
             return mediaMap;
         } catch (IOException e) {
             e.printStackTrace();

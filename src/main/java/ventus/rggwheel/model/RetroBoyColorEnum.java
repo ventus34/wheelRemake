@@ -11,7 +11,7 @@ public enum RetroBoyColorEnum {
     CRISMON("#bf263a"),
     RED("#f1151f"),
     ECRIE("#e5dfd1");
-    String color;
+    final String color;
 
      RetroBoyColorEnum(String color) {
         this.color = color;

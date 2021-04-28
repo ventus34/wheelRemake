@@ -12,7 +12,7 @@ import ventus.rggwheel.services.spreadsheet.GoogleFormsPostService;
 import ventus.rggwheel.utils.WheelUtils;
 
 public abstract class WheelController extends FXMLController {
-    private final double MUSIC_FADEOUT_TIME = 10.0;
+    private final double MUSIC_FADEOUT_TIME = 3.0;
     private final double MUSIC_FADEOUT_TIME_OFFSET = 1.0;
     private MediaPlayerService mediaPlayerService;
     private WheelController oppositeModeController;
@@ -47,7 +47,7 @@ public abstract class WheelController extends FXMLController {
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);
         rotation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isFadeoutSet && spinTimeInSeconds > 9 && spinTime.subtract(newValue).toSeconds() <= MUSIC_FADEOUT_TIME + MUSIC_FADEOUT_TIME_OFFSET) {
+            if (!isFadeoutSet && spinTimeInSeconds > 10 && spinTime.subtract(newValue).toSeconds() <= MUSIC_FADEOUT_TIME + MUSIC_FADEOUT_TIME_OFFSET) {
                 mediaPlayerService.fadeout(MediaPlayerService.AudioPlayerEnum.MUSIC, MUSIC_FADEOUT_TIME);
                 isFadeoutSet = true;
             }
@@ -59,8 +59,6 @@ public abstract class WheelController extends FXMLController {
             retroBoy.getProgress().getPrizesHistory().add(currentPrize);
             if(currentPrize.equals(PrizeEnum.DOUBLE)) {
                 WheelUtils.wheelMultiplier = WheelUtils.wheelMultiplier * 2;
-            } else {
-                WheelUtils.wheelMultiplier = 1;
             }
             Integer potions = retroBoy.getProgress().getInventory().get(ItemEnum.Potion);
             Integer hints = retroBoy.getProgress().getInventory().get(ItemEnum.Hints);
@@ -79,9 +77,13 @@ public abstract class WheelController extends FXMLController {
             retroBoy.save();
             retroBoy.setPrizeDesc(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360));
             retroBoy.checkPrize();
+            if(!currentPrize.equals(PrizeEnum.DOUBLE)) {
+                WheelUtils.wheelMultiplier = 1;
+            }
         });
         rotation.play();
-        if(spinTime.toSeconds() > 9) mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");
+        mediaPlayerService.setMusicTime((int) spinTime.toSeconds());
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");
     }
 
     protected void goToNext(ImageView wheel) {

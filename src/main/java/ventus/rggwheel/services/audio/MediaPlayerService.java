@@ -12,14 +12,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MediaPlayerService {
     private final Map<AudioPlayerEnum, MediaPlayer> players;
+    private int musicTime = 10;
 
     public enum AudioPlayerEnum {
         MUSIC, SOUND_CLIPS, SFX
@@ -30,6 +29,11 @@ public class MediaPlayerService {
     Map<String, Media> soundClipsMap = load("sound/clips/");
     Map<String, Media> sfxMap = load("sound/sfx/");
     Map<String, Media> musicMap = load("sound/music/");
+    Map<String, Media> lessThanFiveSecondsMap = load("sound/music/5s");
+    Map<String, Media> lessThanTenSecondsMap = load("sound/music/10s");
+    Map<String, Media> lessThanThirtySecondsMap = load("sound/music/30s");
+    Map<String, Media> lessThanSixtySecondsMap = load("sound/music/60s");
+    Map<String, Media> longerMusicMap = load("sound/music/90s");
 
     public MediaPlayerService() {
         players = new HashMap<>();
@@ -38,10 +42,27 @@ public class MediaPlayerService {
         players.put(AudioPlayerEnum.SOUND_CLIPS, null);
     }
 
+    Random rng = new Random();
+
     public void play(AudioPlayerEnum player, String fileName) {
         switch (player) {
             case MUSIC:
-                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(musicMap.get(fileName)));
+                ArrayList<Media> music;
+                if(musicTime <= 5){
+                    music = new ArrayList<>(lessThanFiveSecondsMap.values());
+                } else if(musicTime <= 10){
+                    music = new ArrayList<>(lessThanTenSecondsMap.values());
+                } else if(musicTime <= 30){
+                    music = new ArrayList<>(lessThanThirtySecondsMap.values());
+                    music.addAll(lessThanSixtySecondsMap.values());
+                    music.addAll(longerMusicMap.values());
+                } else if(musicTime <= 60){
+                    music = new ArrayList<>(lessThanSixtySecondsMap.values());
+                    music.addAll(longerMusicMap.values());
+                } else {
+                    music = new ArrayList<>(longerMusicMap.values());
+                }
+                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(music.get(rng.nextInt(music.size()))));
                 players.get(AudioPlayerEnum.MUSIC).play();
                 break;
             case SOUND_CLIPS:
@@ -50,6 +71,7 @@ public class MediaPlayerService {
                 break;
             case SFX:
                 players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
+                players.get(AudioPlayerEnum.SFX).setVolume(0.1);
                 players.get(AudioPlayerEnum.SFX).play();
                 break;
         }
@@ -138,5 +160,9 @@ public class MediaPlayerService {
         MediaPlayer player = new MediaPlayer(media);
         player.setVolume(GLOBAL_VOLUME);
         return player;
+    }
+
+    public void setMusicTime(int musicTime) {
+        this.musicTime = musicTime;
     }
 }

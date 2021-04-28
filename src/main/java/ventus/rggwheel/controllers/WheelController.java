@@ -83,7 +83,7 @@ public abstract class WheelController extends FXMLController {
         });
         rotation.play();
         mediaPlayerService.setMusicTime((int) spinTime.toSeconds());
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "spin.mp3");
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, "placeholder");
     }
 
     protected void goToNext(ImageView wheel) {

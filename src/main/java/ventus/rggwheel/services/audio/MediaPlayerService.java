@@ -45,21 +45,27 @@ public class MediaPlayerService {
         switch (player) {
             case MUSIC:
                 ArrayList<Media> music;
+                System.out.println(musicTime);
                 if(musicTime <= 5){
                     music = new ArrayList<>(lessThanFiveSecondsMap.values());
                 } else if(musicTime <= 10){
                     music = new ArrayList<>(lessThanTenSecondsMap.values());
+                } else if(musicTime <= 20){
+                    music = new ArrayList<>(lessThanThirtySecondsMap.values());
                 } else if(musicTime <= 30){
                     music = new ArrayList<>(lessThanThirtySecondsMap.values());
                     music.addAll(lessThanSixtySecondsMap.values());
-                    music.addAll(longerMusicMap.values());
+                } else if(musicTime <= 45){
+                    music = new ArrayList<>(lessThanSixtySecondsMap.values());
                 } else if(musicTime <= 60){
                     music = new ArrayList<>(lessThanSixtySecondsMap.values());
                     music.addAll(longerMusicMap.values());
                 } else {
                     music = new ArrayList<>(longerMusicMap.values());
                 }
-                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(music.get(rng.nextInt(music.size()))));
+                Media randomMusic = music.get(rng.nextInt(music.size()));
+                System.out.println(randomMusic.getSource());
+                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
                 players.get(AudioPlayerEnum.MUSIC).play();
                 break;
             case SOUND_CLIPS:

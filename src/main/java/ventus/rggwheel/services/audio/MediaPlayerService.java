@@ -22,7 +22,7 @@ public class MediaPlayerService {
         MUSIC, SOUND_CLIPS, SFX
     }
 
-    private final Double GLOBAL_VOLUME = 0.2;
+    private final Double GLOBAL_VOLUME = 0.7;
 
     Map<String, Media> soundClipsMap = load("sound/clips/");
     Map<String, Media> sfxMap = load("sound/sfx/");
@@ -74,7 +74,6 @@ public class MediaPlayerService {
                 break;
             case SFX:
                 players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
-                players.get(AudioPlayerEnum.SFX).setVolume(0.1);
                 players.get(AudioPlayerEnum.SFX).play();
                 break;
         }

@@ -19,7 +19,7 @@
             <Font name="Bit Cell" size="80.0" />
         </font>
     </Label>
-    <Label layoutX="452.0" layoutY="448.0" prefHeight="168.0" prefWidth="530.0" text="---&gt;" textFill="#214236">
+    <Label layoutX="452.0" layoutY="447.0" prefHeight="168.0" prefWidth="530.0" text="---&gt;" textFill="#214236">
         <font>
             <Font name="Bit Cell" size="96.0" />
         </font>

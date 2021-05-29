@@ -15,6 +15,10 @@ public class TransitionManagerService {
     private int currentScene;
     private final int numberOfScenes;
 
+    private final int splashScreen = 1;
+    private final int wheelScene = 1;
+    private final int prizeDescScene = 2;
+
     public TransitionManagerService(ArrayList<FXMLController> monoScenes, ArrayList<FXMLController> colorScenes, BackgroundController backgroundController) {
         Map<RetroBoyModesEnum, ArrayList<FXMLController>> scenes = new HashMap<>();
         scenes.put(RetroBoyModesEnum.MONO, monoScenes);
@@ -23,33 +27,34 @@ public class TransitionManagerService {
         this.currentMode = RetroBoyModesEnum.MONO;
         this.currentScene = 0;
         this.backgroundController = backgroundController;
-        if(monoScenes.size()==colorScenes.size()){
+        if (monoScenes.size() == colorScenes.size()) {
             this.numberOfScenes = monoScenes.size();
         } else {
             throw new IllegalStateException("Number of scenes for each RetroBoy version have to be the same");
         }
     }
 
-    public void switchScene(){
-        if(currentScene==0){
-            availableScenes.get(currentMode).get(currentScene).hide();
-            currentScene = 1;
+    public void switchScene() {
+        if (this.currentScene == splashScreen) {
+            availableScenes.get(currentMode).get(this.currentScene).hide();
+            this.currentScene = wheelScene;
         }
-            availableScenes.get(currentMode).get(currentScene).hide();
-            if (currentScene < numberOfScenes - 1) {
-                availableScenes.get(currentMode).get(++currentScene).show();
-            } else if (currentScene == numberOfScenes - 1) {
-                currentScene = 2;
-                availableScenes.get(currentMode).get(currentScene).show();
-            } else {
-                throw new IllegalStateException("Scene doesnt exist");
-            }
+        availableScenes.get(currentMode).get(this.currentScene).hide();
+        if (this.currentScene < numberOfScenes - wheelScene) {
+            availableScenes.get(currentMode).get(++this.currentScene).show();
+        } else if (this.currentScene == numberOfScenes - wheelScene) {
+            this.currentScene = prizeDescScene;
+            availableScenes.get(currentMode).get(this.currentScene).show();
+        } else {
+            throw new IllegalStateException("Scene doesnt exist");
+        }
 
 
     }
-    public void switchMode(){
+
+    public void switchMode() {
         backgroundController.switchBackground();
-        if(currentMode == RetroBoyModesEnum.MONO){
+        if (currentMode == RetroBoyModesEnum.MONO) {
             currentMode = RetroBoyModesEnum.COLOR;
             availableScenes.get(RetroBoyModesEnum.MONO).get(currentScene).hide();
             availableScenes.get(RetroBoyModesEnum.COLOR).get(currentScene).show();
@@ -60,20 +65,20 @@ public class TransitionManagerService {
         }
     }
 
-    public boolean checkAndBack(){
-        boolean isCheckScreen;
-        if(currentScene == 2) {
+    public boolean checkAndBack() {
+        boolean isCheckScene;
+        if (currentScene == prizeDescScene) {
             availableScenes.get(currentMode).get(currentScene).hide();
-            currentScene = 1;
+            currentScene = wheelScene;
             availableScenes.get(currentMode).get(currentScene).show();
-            isCheckScreen = true;
+            isCheckScene = true;
         } else {
             availableScenes.get(currentMode).get(currentScene).hide();
-            currentScene = 2;
+            currentScene = prizeDescScene;
             availableScenes.get(currentMode).get(currentScene).show();
-            isCheckScreen = false;
+            isCheckScene = false;
         }
-        return isCheckScreen;
+        return isCheckScene;
     }
 
     public RetroBoyModesEnum getCurrentMode() {

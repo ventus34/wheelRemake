@@ -31,6 +31,7 @@ public class MediaPlayerService {
     Map<String, Media> lessThanThirtySecondsMap = load("sound/music/30s");
     Map<String, Media> lessThanSixtySecondsMap = load("sound/music/60s");
     Map<String, Media> longerMusicMap = load("sound/music/90s");
+    Map<String, Media> commonMusicMap = load("sound/music/common");
 
     public MediaPlayerService() {
         players = new HashMap<>();
@@ -42,40 +43,49 @@ public class MediaPlayerService {
     Random rng = new Random();
 
     public void play(AudioPlayerEnum player, String fileName) {
-        switch (player) {
-            case MUSIC:
-                ArrayList<Media> music;
-                System.out.println(musicTime);
-                if(musicTime <= 5){
-                    music = new ArrayList<>(lessThanFiveSecondsMap.values());
-                } else if(musicTime <= 10){
-                    music = new ArrayList<>(lessThanTenSecondsMap.values());
-                } else if(musicTime <= 20){
-                    music = new ArrayList<>(lessThanThirtySecondsMap.values());
-                } else if(musicTime <= 30){
-                    music = new ArrayList<>(lessThanThirtySecondsMap.values());
-                    music.addAll(lessThanSixtySecondsMap.values());
-                } else if(musicTime <= 45){
-                    music = new ArrayList<>(lessThanSixtySecondsMap.values());
-                } else if(musicTime <= 60){
-                    music = new ArrayList<>(lessThanSixtySecondsMap.values());
-                    music.addAll(longerMusicMap.values());
-                } else {
-                    music = new ArrayList<>(longerMusicMap.values());
-                }
-                Media randomMusic = music.get(rng.nextInt(music.size()));
-                System.out.println(randomMusic.getSource());
-                players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
-                players.get(AudioPlayerEnum.MUSIC).play();
-                break;
-            case SOUND_CLIPS:
-                players.replace(AudioPlayerEnum.SOUND_CLIPS, getAudioPlayer(soundClipsMap.get(fileName)));
-                players.get(AudioPlayerEnum.SOUND_CLIPS).play();
-                break;
-            case SFX:
-                players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
-                players.get(AudioPlayerEnum.SFX).play();
-                break;
+        try {
+            switch (player) {
+                case MUSIC:
+                    ArrayList<Media> music;
+                    System.out.println(musicTime);
+                    if (musicTime <= 5) {
+                        music = new ArrayList<>(lessThanFiveSecondsMap.values());
+                    } else if (musicTime <= 10) {
+                        music = new ArrayList<>(lessThanTenSecondsMap.values());
+                    } else if (musicTime <= 20) {
+                        music = new ArrayList<>(lessThanThirtySecondsMap.values());
+                        music.addAll(lessThanSixtySecondsMap.values());
+                    } else if (musicTime <= 30) {
+                        music = new ArrayList<>(lessThanThirtySecondsMap.values());
+                        music.addAll(lessThanSixtySecondsMap.values());
+                        music.addAll(commonMusicMap.values());
+                    } else if (musicTime <= 45) {
+                        music = new ArrayList<>(lessThanSixtySecondsMap.values());
+                        music.addAll(commonMusicMap.values());
+                    } else if (musicTime <= 60) {
+                        music = new ArrayList<>(lessThanSixtySecondsMap.values());
+                        music.addAll(longerMusicMap.values());
+                        music.addAll(commonMusicMap.values());
+                    } else {
+                        music = new ArrayList<>(longerMusicMap.values());
+                        music.addAll(commonMusicMap.values());
+                    }
+                    Media randomMusic = music.get(rng.nextInt(music.size()));
+                    System.out.println(randomMusic.getSource());
+                    players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
+                    players.get(AudioPlayerEnum.MUSIC).play();
+                    break;
+                case SOUND_CLIPS:
+                    players.replace(AudioPlayerEnum.SOUND_CLIPS, getAudioPlayer(soundClipsMap.get(fileName)));
+                    players.get(AudioPlayerEnum.SOUND_CLIPS).play();
+                    break;
+                case SFX:
+                    players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
+                    players.get(AudioPlayerEnum.SFX).play();
+                    break;
+            }
+        } catch (Exception ex){
+            System.err.println(ex.getMessage());
         }
     }
 

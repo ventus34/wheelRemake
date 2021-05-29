@@ -22,7 +22,6 @@ public class App extends Application {
         Font.loadFont(getClass().getResourceAsStream("fonts/BitCell.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("fonts/emulogic.ttf"), 14);
         scene = new Scene(loadFXML("retroBoy"));
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
         RetroBoySizeHandlerService.resizeHandler(scene);

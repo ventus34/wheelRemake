@@ -31,7 +31,6 @@ public class MediaPlayerService {
     Map<String, Media> lessThanThirtySecondsMap = load("sound/music/30s");
     Map<String, Media> lessThanSixtySecondsMap = load("sound/music/60s");
     Map<String, Media> longerMusicMap = load("sound/music/90s");
-    Map<String, Media> commonMusicMap = load("sound/music/common");
 
     public MediaPlayerService() {
         players = new HashMap<>();
@@ -48,27 +47,20 @@ public class MediaPlayerService {
                 case MUSIC:
                     ArrayList<Media> music;
                     System.out.println(musicTime);
-                    if (musicTime <= 5) {
+                    if (musicTime <= 8) {
                         music = new ArrayList<>(lessThanFiveSecondsMap.values());
-                    } else if (musicTime <= 10) {
+                    } else if (musicTime <= 15) {
                         music = new ArrayList<>(lessThanTenSecondsMap.values());
-                    } else if (musicTime <= 20) {
-                        music = new ArrayList<>(lessThanThirtySecondsMap.values());
-                        music.addAll(lessThanSixtySecondsMap.values());
+                        music.addAll(lessThanThirtySecondsMap.values());
                     } else if (musicTime <= 30) {
                         music = new ArrayList<>(lessThanThirtySecondsMap.values());
                         music.addAll(lessThanSixtySecondsMap.values());
-                        music.addAll(commonMusicMap.values());
-                    } else if (musicTime <= 45) {
-                        music = new ArrayList<>(lessThanSixtySecondsMap.values());
-                        music.addAll(commonMusicMap.values());
+                        music.addAll(longerMusicMap.values());
                     } else if (musicTime <= 60) {
                         music = new ArrayList<>(lessThanSixtySecondsMap.values());
                         music.addAll(longerMusicMap.values());
-                        music.addAll(commonMusicMap.values());
                     } else {
                         music = new ArrayList<>(longerMusicMap.values());
-                        music.addAll(commonMusicMap.values());
                     }
                     Media randomMusic = music.get(rng.nextInt(music.size()));
                     System.out.println(randomMusic.getSource());

@@ -15,7 +15,7 @@ public class TransitionManagerService {
     private int currentScene;
     private final int numberOfScenes;
 
-    private final int splashScreen = 1;
+    private final int splashScreen = 0;
     private final int wheelScene = 1;
     private final int prizeDescScene = 2;
 

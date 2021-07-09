@@ -47,9 +47,9 @@ public class MediaPlayerService {
                 case MUSIC:
                     ArrayList<Media> music;
                     System.out.println(musicTime);
-                    if (musicTime <= 8) {
+                    if (musicTime <= 6) {
                         music = new ArrayList<>(lessThanFiveSecondsMap.values());
-                    } else if (musicTime <= 15) {
+                    } else if (musicTime <= 12) {
                         music = new ArrayList<>(lessThanTenSecondsMap.values());
                         music.addAll(lessThanThirtySecondsMap.values());
                     } else if (musicTime <= 30) {

@@ -46,9 +46,10 @@ public abstract class WheelController extends FXMLController {
         rotation.setCycleCount(1);
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);
+        int fadeoutDuration = (int) Math.min(MUSIC_FADEOUT_TIME, spinTime.toSeconds());
         rotation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-            if (!isFadeoutSet && spinTimeInSeconds > 10 && spinTime.subtract(newValue).toSeconds() <= MUSIC_FADEOUT_TIME + MUSIC_FADEOUT_TIME_OFFSET) {
-                mediaPlayerService.fadeout(MediaPlayerService.AudioPlayerEnum.MUSIC, MUSIC_FADEOUT_TIME);
+            if (!isFadeoutSet && newValue.toSeconds() > spinTimeInSeconds - fadeoutDuration) {
+                mediaPlayerService.fadeout(MediaPlayerService.AudioPlayerEnum.MUSIC, fadeoutDuration);
                 isFadeoutSet = true;
             }
         });
@@ -97,7 +98,7 @@ public abstract class WheelController extends FXMLController {
     }
 
     protected void goToRandomPrize(ImageView wheel){
-        double destination = wheel.getRotate() + WheelUtils.getRandomAngle(1) ;
+        double destination = wheel.getRotate() + WheelUtils.getRandomAngle(Integer.parseInt(getSpinTime().getText()));
         rotationAnimation(wheel, destination);
     }
 

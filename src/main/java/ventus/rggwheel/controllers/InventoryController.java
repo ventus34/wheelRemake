@@ -17,18 +17,22 @@ public abstract class InventoryController extends FXMLController {
     }
 
     public void add(ItemEnum item) {
-        Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
-        inventory.replace(item, inventory.get(item) + 1);
-        System.out.println("Added 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
-        retroBoy.save();
+        if(retroBoy.isInventory()) {
+            Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
+            inventory.replace(item, inventory.get(item) + 1);
+            System.out.println("Added 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+            retroBoy.save();
+        }
     }
 
     public void substract(ItemEnum item) {
-        Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
-        inventory.replace(item, inventory.get(item)- 1);
-        System.out.println("Substracted 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
-        GoogleFormsPostService.savePrizeToSpreadsheet("Used " + item.getDescription(), "Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
-        retroBoy.save();
+        if(retroBoy.isInventory()) {
+            Map<ItemEnum, Integer> inventory = retroBoy.getProgress().getInventory();
+            inventory.replace(item, inventory.get(item) - 1);
+            System.out.println("Substracted 1 " + item.getDescription() + " Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+            GoogleFormsPostService.savePrizeToSpreadsheet("Used " + item.getDescription(), "Hints: " + inventory.get(ItemEnum.Hints) + "; Potions: " + inventory.get(ItemEnum.Potion));
+            retroBoy.save();
+        }
     }
 
     abstract public void setRerollLabel();

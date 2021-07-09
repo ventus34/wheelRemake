@@ -282,6 +282,10 @@ public class RetroBoyController {
         saveStateService.saveState();
     }
 
+    public boolean isInventory(){
+        return transitionManagerService.isInventory();
+    }
+
     void lockButtons() {
         buttons.forEach(button -> button.setDisable(true));
     }

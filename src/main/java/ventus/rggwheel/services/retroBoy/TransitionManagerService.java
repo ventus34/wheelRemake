@@ -81,6 +81,10 @@ public class TransitionManagerService {
         return isCheckScene;
     }
 
+    public boolean isInventory(){
+        return currentScene == 3;
+    }
+
     public RetroBoyModesEnum getCurrentMode() {
         return currentMode;
     }

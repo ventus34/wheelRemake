@@ -39,16 +39,18 @@ public class WheelUtils {
         return 0;
     }
 
-    public static double getRandomAngle() {
-        return rng.nextDouble() + rng.nextInt(360) + (180 - rng.nextInt(180) - rng.nextDouble()) + 360 * (rng.nextInt(10) + 10);
-    }
-
-    public static double getRandomAngle(int spinTime) {
-        return rng.nextDouble()
-                + rng.nextInt(360)
-                + (180 - rng.nextInt(180) - rng.nextDouble())
-                + (rng.nextInt(5) + 1) * spinTime * 360
-                + spinTime * (1+rng.nextDouble());
+    public static double getRandomAngle(double currentRotation, int spinTime) {
+        double randomAngle;
+        double currentPlacement;
+        do{
+            randomAngle = rng.nextDouble()
+                    + rng.nextInt(360)
+                    + (180 - rng.nextInt(180) - rng.nextDouble())
+                    + (rng.nextInt(5) + 1) * spinTime * 360
+                    + spinTime * (1+rng.nextDouble());
+            currentPlacement = (currentRotation + randomAngle) % 360 % 20;
+        } while (currentPlacement > 19.5 || currentPlacement < 0.5);
+        return randomAngle;
     }
 
     public static int getRandomNumberOfPrize() {

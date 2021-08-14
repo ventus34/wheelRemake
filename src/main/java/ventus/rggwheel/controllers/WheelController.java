@@ -119,7 +119,7 @@ public abstract class WheelController extends FXMLController {
     }
 
     protected void goToRandomPrize(AnchorPane wheel){
-        double destination = wheel.getRotate() + WheelUtils.getRandomAngle(Integer.parseInt(getSpinTime().getText()));
+        double destination = wheel.getRotate() + WheelUtils.getRandomAngle(wheel.getRotate(), Integer.parseInt(getSpinTime().getText()));
         rotationAnimation(wheel, destination);
     }
 

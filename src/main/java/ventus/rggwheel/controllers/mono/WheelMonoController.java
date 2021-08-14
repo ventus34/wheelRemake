@@ -61,7 +61,7 @@ public class WheelMonoController extends WheelController {
     public void spinWheel(){
         String label = spinTime.getText();
         Duration duration = Duration.seconds(Integer.parseInt(label));
-        spin(duration, monoPane, WheelUtils.getRandomAngle(Integer.parseInt(label)));
+        spin(duration, monoPane, WheelUtils.getRandomAngle(monoPane.getRotate(), Integer.parseInt(label)));
     }
 
     @Override

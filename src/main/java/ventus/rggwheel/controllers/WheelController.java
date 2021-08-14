@@ -4,22 +4,34 @@ import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
+import ventus.rggwheel.App;
 import ventus.rggwheel.model.ItemEnum;
 import ventus.rggwheel.model.PrizeEnum;
 import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.spreadsheet.GoogleFormsPostService;
+import ventus.rggwheel.services.wheel.PrizesService;
 import ventus.rggwheel.utils.WheelUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class WheelController extends FXMLController {
     private final double MUSIC_FADEOUT_TIME = 3.0;
     private final double MUSIC_FADEOUT_TIME_OFFSET = 1.0;
     private MediaPlayerService mediaPlayerService;
+    private PrizesService prizesService;
     private WheelController oppositeModeController;
     static boolean isFadeoutSet = false;
 
     public void setMediaPlayerService(MediaPlayerService mediaPlayerService) {
         this.mediaPlayerService = mediaPlayerService;
+    }
+
+    public void setPrizesService(PrizesService prizesService) {
+        this.prizesService = prizesService;
     }
 
     public void setOppositeModeController(WheelController oppositeModeController) {
@@ -33,7 +45,16 @@ public abstract class WheelController extends FXMLController {
     public abstract Label getSpinTime();
     public abstract void setSpinTime(Integer spinTime);
 
-    protected void spin(Duration spinTime, ImageView wheel, Double spinAngle) {
+    public List<Label> prizesList = new ArrayList<>();
+
+    protected void setLabels(){
+        List<String> labels = prizesService.labels();
+        for (int i = 0; i < prizesList.size(); i++) {
+            prizesList.get(i).setText(labels.get(i));
+        }
+    }
+
+    protected void spin(Duration spinTime, AnchorPane wheel, Double spinAngle) {
         double spinTimeInSeconds = spinTime.toSeconds();
         isFadeoutSet = false;
         retroBoy.lockButtons();
@@ -54,7 +75,7 @@ public abstract class WheelController extends FXMLController {
             }
         });
         rotation.setOnFinished(e -> {
-            PrizeEnum currentPrize = WheelUtils.indicatedPrize(wheel.getRotate());
+            PrizeEnum currentPrize = prizesService.getPrize(WheelUtils.indicatedPrize(wheel.getRotate()));
             oppositeModeController.setRotate(wheel.getRotate());
             retroBoy.unlockButtons();
             retroBoy.getProgress().getPrizesHistory().add(currentPrize);
@@ -76,7 +97,7 @@ public abstract class WheelController extends FXMLController {
             }
             GoogleFormsPostService.savePrizeToSpreadsheet(currentPrize.getName(), "Hints: " + hints + "; Potions: " + potions);
             retroBoy.save();
-            retroBoy.setPrizeDesc(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360));
+            retroBoy.setPrizeDesc(prizesService.getPrize(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360)));
             retroBoy.checkPrize();
             if(!currentPrize.equals(PrizeEnum.DOUBLE)) {
                 WheelUtils.wheelMultiplier = 1;
@@ -87,17 +108,17 @@ public abstract class WheelController extends FXMLController {
         mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.MUSIC, null);
     }
 
-    protected void goToNext(ImageView wheel) {
-        double destination = wheel.getRotate() + 3 * WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle();
-        rotationAnimation(wheel, destination);
+    protected void goToNext(AnchorPane wheelPane) {
+        double destination = wheelPane.getRotate() + 3 * WheelUtils.getAngle()/2 - wheelPane.getRotate()%WheelUtils.getAngle();
+        rotationAnimation(wheelPane, destination);
     }
 
-    protected void goBack(ImageView wheel) {
-        double destination = wheel.getRotate() - WheelUtils.getAngle()/2 - wheel.getRotate()%WheelUtils.getAngle();
-        rotationAnimation(wheel, destination);
+    protected void goBack(AnchorPane wheelPane) {
+        double destination = wheelPane.getRotate() - WheelUtils.getAngle()/2 - wheelPane.getRotate()%WheelUtils.getAngle();
+        rotationAnimation(wheelPane, destination);
     }
 
-    protected void goToRandomPrize(ImageView wheel){
+    protected void goToRandomPrize(AnchorPane wheel){
         double destination = wheel.getRotate() + WheelUtils.getRandomAngle(Integer.parseInt(getSpinTime().getText()));
         rotationAnimation(wheel, destination);
     }
@@ -108,17 +129,17 @@ public abstract class WheelController extends FXMLController {
         oppositeModeController.setSpinTime(randomTime);
     }
 
-    private void rotationAnimation(ImageView wheel, double destination) {
+    private void rotationAnimation(AnchorPane wheelPane, double destination) {
         RotateTransition rotation = new RotateTransition(
                 Duration.millis(300),
-                wheel);
+                wheelPane);
         rotation.setToAngle(destination);
         rotation.setCycleCount(1);
         rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
         rotation.setAutoReverse(false);
         rotation.setOnFinished(e -> {
-            oppositeModeController.setRotate(wheel.getRotate());
-            retroBoy.setPrizeDesc(WheelUtils.indicatedPrize(Math.abs(wheel.getRotate())%360));
+            oppositeModeController.setRotate(wheelPane.getRotate());
+            retroBoy.setPrizeDesc(prizesService.getPrize(WheelUtils.indicatedPrize(Math.abs(wheelPane.getRotate())%360)));
         });
         rotation.play();
     }

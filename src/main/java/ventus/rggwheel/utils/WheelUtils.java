@@ -2,6 +2,7 @@ package ventus.rggwheel.utils;
 
 import ventus.rggwheel.model.PrizeEnum;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
@@ -18,7 +19,7 @@ public class WheelUtils {
 
     public static int wheelMultiplier = 1;
 
-    private static final Random rng = new Random(System.currentTimeMillis());
+    private static final Random rng = new SecureRandom();
 
     public static Double getAngle() {
         return WHEEL_ANGLE / numberOfPrizes;
@@ -28,14 +29,14 @@ public class WheelUtils {
         return WHEEL_ANGLE / numberOfPrizes / 2;
     }
 
-    public static PrizeEnum indicatedPrize(double wheelAngleRotation) {
+    public static int indicatedPrize(double wheelAngleRotation) {
         double absoluteRotation = wheelAngleRotation % 360;
         for (int i = 1; i <= numberOfPrizes; i++) {
             if (absoluteRotation < getAngle() * i) {
-                return prizesList.get(numberOfPrizes - i);
+                return numberOfPrizes - i;
             }
         }
-        return prizesList.get(0);
+        return 0;
     }
 
     public static double getRandomAngle() {

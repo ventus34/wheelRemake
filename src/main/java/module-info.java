@@ -12,4 +12,5 @@ module rggwheel {
     exports ventus.rggwheel.controllers;
     exports ventus.rggwheel.model;
     exports ventus.rggwheel.services.audio;
+    exports ventus.rggwheel.services.wheel;
 }

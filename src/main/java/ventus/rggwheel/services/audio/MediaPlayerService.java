@@ -10,6 +10,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -39,7 +40,7 @@ public class MediaPlayerService {
         players.put(AudioPlayerEnum.SOUND_CLIPS, null);
     }
 
-    Random rng = new Random();
+    Random rng = new SecureRandom();
 
     public void play(AudioPlayerEnum player, String fileName) {
         try {

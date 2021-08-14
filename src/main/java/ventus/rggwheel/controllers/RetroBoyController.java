@@ -15,6 +15,7 @@ import ventus.rggwheel.services.retroBoy.TransitionManagerService;
 import ventus.rggwheel.controllers.color.*;
 import ventus.rggwheel.controllers.mono.*;
 import ventus.rggwheel.services.save.SaveStateService;
+import ventus.rggwheel.services.wheel.PrizesService;
 import ventus.rggwheel.utils.ColorUtils;
 import ventus.rggwheel.utils.WheelUtils;
 
@@ -121,6 +122,7 @@ public class RetroBoyController {
 
     private TransitionManagerService transitionManagerService;
     private final MediaPlayerService mediaPlayerService = new MediaPlayerService();
+    private final PrizesService prizesService = new PrizesService();
     private SaveStateService saveStateService;
     private boolean isAfterSplashScreen = false;
 
@@ -175,6 +177,8 @@ public class RetroBoyController {
         transitionManagerService = new TransitionManagerService(monoScenesControllers, colorScenesControllers, backgroundController);
         wheelColorController.setMediaPlayerService(mediaPlayerService);
         wheelMonoController.setMediaPlayerService(mediaPlayerService);
+        wheelColorController.setPrizesService(prizesService);
+        wheelMonoController.setPrizesService(prizesService);
         wheelColorController.setOppositeModeController(wheelMonoController);
         wheelMonoController.setOppositeModeController(wheelColorController);
         inventoryColorController.setOppositeModeController(inventoryMonoController);
@@ -197,6 +201,8 @@ public class RetroBoyController {
         inventoryMonoController.setRerollLabel();
         inventoryColorController.setRerollLabel();
         unlockButtons();
+        wheelMonoController.setLabels();
+        wheelColorController.setLabels();
     }
 
     @FXML
@@ -315,6 +321,9 @@ public class RetroBoyController {
                         wheelColorController.randomizer();
                         break;
                 }
+                prizesService.shufflePrizes();
+                wheelColorController.setLabels();
+                wheelMonoController.setLabels();
             }
         });
     }

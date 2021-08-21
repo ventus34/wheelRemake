@@ -10,7 +10,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
-import java.security.SecureRandom;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -20,7 +19,7 @@ public class MediaPlayerService {
     private int musicTime = 10;
 
     public enum AudioPlayerEnum {
-        MUSIC, SOUND_CLIPS, SFX
+        MUSIC, SOUND_CLIPS, SFX, BUTTON
     }
 
     static class SoundDescription {
@@ -42,19 +41,19 @@ public class MediaPlayerService {
     }
 
     private final Double GLOBAL_VOLUME = 0.7;
+    File buttonSoundFile = new File(System.getProperty("user.dir") + "/sound/button.mp3");
+    MediaPlayer buttonSound = new MediaPlayer(new Media(buttonSoundFile.toPath().toUri().toString()));
 
-    Map<SoundDescription, Media> soundClipsMap = load("sound/clips/");
     Map<SoundDescription, Media> sfxMap = load("sound/sfx/");
+    Map<SoundDescription, Media> soundClipsMap = load("sound/clips/");
     Map<SoundDescription, Media> musicMap = load("sound/music/");
 
     public MediaPlayerService() {
         players = new HashMap<>();
-        players.put(AudioPlayerEnum.MUSIC, null);
         players.put(AudioPlayerEnum.SFX, null);
+        players.put(AudioPlayerEnum.MUSIC, null);
         players.put(AudioPlayerEnum.SOUND_CLIPS, null);
     }
-
-    Random rng = new SecureRandom();
 
     public void play(AudioPlayerEnum player, String fileName) {
         try {
@@ -77,6 +76,10 @@ public class MediaPlayerService {
                 case SFX:
                     players.replace(AudioPlayerEnum.SFX, getAudioPlayer(getByFilename(AudioPlayerEnum.SFX, fileName)));
                     players.get(AudioPlayerEnum.SFX).play();
+                    break;
+                case BUTTON:
+                    buttonSound.seek(Duration.ZERO);
+                    buttonSound.play();
                     break;
             }
         } catch (Exception ex){

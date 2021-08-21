@@ -1,25 +1,40 @@
 package ventus.rggwheel.services.spreadsheet;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.Properties;
 
 public class GoogleFormsPostService {
-    private static final String forms = "https://docs.google.com/forms/d/e/1FAIpQLScw21VjR9jpyojgLN5xVn-3Zd92dsLVjwqQu5aSF-DalSnEOQ/formResponse";
+
+    static private Properties properties;
+
+    public static void init() {
+        File config = new File(System.getProperty("user.dir") + "/config.properties");
+        properties = new Properties();
+        try {
+            properties.load(new FileInputStream(config));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static String stateToPostParams(String prizeName, String inventory) {
-        return "entry.1230378250=" + System.getProperty("user.name") + "&entry.1233962603=" + prizeName + "&entry.1667522736=" + inventory;
+        return "entry." + properties.getProperty("usernameEntryID") + "=" + System.getProperty("user.name")
+                + "&entry." + properties.getProperty("prizenameEntryID") + "=" + prizeName
+                + "&entry." + properties.getProperty("inventoryEntryID") + "=" + inventory;
     }
 
     public static void savePrizeToSpreadsheet(String prizeName, String inventory) {
-        if (System.getProperty("user.name").equalsIgnoreCase("TMR")) {
+        if(properties==null) init();
+        String prePostData = stateToPostParams(prizeName, inventory);
+        System.out.println("URL: " + properties.getProperty("googleFormURL"));
+        System.out.println("DATA: " + prePostData);
+        if (Boolean.parseBoolean(properties.getProperty("sendToForms"))) {
             try {
-                URL url = new URL(forms);
+                URL url = new URL(properties.getProperty("googleFormURL"));
                 URLConnection con = url.openConnection();
                 HttpURLConnection http = (HttpURLConnection) con;
                 con.setRequestProperty("User-Agent", "Java");

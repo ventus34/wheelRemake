@@ -182,7 +182,9 @@ public class RetroBoyController {
         wheelColorController.setOppositeModeController(wheelMonoController);
         wheelMonoController.setOppositeModeController(wheelColorController);
         inventoryColorController.setOppositeModeController(inventoryMonoController);
+        inventoryColorController.setMediaPlayerService(mediaPlayerService);
         inventoryMonoController.setOppositeModeController(inventoryColorController);
+        inventoryMonoController.setMediaPlayerService(mediaPlayerService);
 
         buttons = new HashSet<>();
         buttons.add(speedUp);
@@ -207,6 +209,7 @@ public class RetroBoyController {
 
     @FXML
     private void spinAction() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.spinWheel();
         } else {
@@ -216,6 +219,7 @@ public class RetroBoyController {
 
     @FXML
     private void moveUp() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.moveToNext();
         } else {
@@ -225,6 +229,7 @@ public class RetroBoyController {
 
     @FXML
     private void moveDown() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
             wheelColorController.moveToPrevious();
         } else {
@@ -234,6 +239,7 @@ public class RetroBoyController {
 
     @FXML
     private void timeUp() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         Integer time = Integer.valueOf(wheelColorController.getSpinTime().getText());
         wheelColorController.setSpinTime(++time);
         wheelMonoController.setSpinTime(time);
@@ -242,6 +248,7 @@ public class RetroBoyController {
 
     @FXML
     private void timeDown() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         Integer time = Integer.valueOf(wheelColorController.getSpinTime().getText());
         if (time > 1) {
             wheelColorController.setSpinTime(--time);
@@ -251,11 +258,13 @@ public class RetroBoyController {
 
     @FXML
     public void checkPrize() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         spinButton.setDisable(transitionManagerService.checkAndBack());
     }
 
     @FXML
     private void pickColor() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         ColorUtils.changeBackgroundColor(retroBoyPane);
     }
 

@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import ventus.rggwheel.controllers.InventoryController;
 import ventus.rggwheel.model.ItemEnum;
+import ventus.rggwheel.services.audio.MediaPlayerService;
 
 public class InventoryMonoController extends InventoryController {
     @FXML
@@ -15,6 +16,7 @@ public class InventoryMonoController extends InventoryController {
 
     @FXML
     public void addHint() {
+        getMediaPlayerService().play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         add(ItemEnum.Hints);
         setHintLabel();
         getOppositeModeController().setHintLabel();
@@ -22,6 +24,7 @@ public class InventoryMonoController extends InventoryController {
 
     @FXML
     public void useHint() {
+        getMediaPlayerService().play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         substract(ItemEnum.Hints);
         setHintLabel();
         getOppositeModeController().setHintLabel();
@@ -30,6 +33,7 @@ public class InventoryMonoController extends InventoryController {
 
     @FXML
     public void addReroll() {
+        getMediaPlayerService().play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         add(ItemEnum.Potion);
         setRerollLabel();
         getOppositeModeController().setRerollLabel();
@@ -37,6 +41,7 @@ public class InventoryMonoController extends InventoryController {
 
     @FXML
     public void useReroll() {
+        getMediaPlayerService().play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         substract(ItemEnum.Potion);
         setRerollLabel();
         getOppositeModeController().setRerollLabel();

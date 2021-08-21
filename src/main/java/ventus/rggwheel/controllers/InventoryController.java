@@ -1,11 +1,13 @@
 package ventus.rggwheel.controllers;
 
 import ventus.rggwheel.model.ItemEnum;
+import ventus.rggwheel.services.audio.MediaPlayerService;
 import ventus.rggwheel.services.spreadsheet.GoogleFormsPostService;
 
 import java.util.Map;
 
 public abstract class InventoryController extends FXMLController {
+    private MediaPlayerService mediaPlayerService;
     private InventoryController oppositeModeController;
 
     public InventoryController getOppositeModeController() {
@@ -14,6 +16,14 @@ public abstract class InventoryController extends FXMLController {
 
     public void setOppositeModeController(InventoryController oppositeModeController) {
         this.oppositeModeController = oppositeModeController;
+    }
+
+    public void setMediaPlayerService(MediaPlayerService mediaPlayerService) {
+        this.mediaPlayerService = mediaPlayerService;
+    }
+
+    public MediaPlayerService getMediaPlayerService() {
+        return mediaPlayerService;
     }
 
     public void add(ItemEnum item) {

@@ -262,7 +262,7 @@ public class RetroBoyController {
     @FXML
     private void start() {
         transitionManagerService.switchScene();
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         if(!isAfterSplashScreen){
             initWhenRetroBoyVisible();
         }
@@ -277,7 +277,7 @@ public class RetroBoyController {
     @FXML
     private void switchMode() {
         transitionManagerService.switchMode();
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.SFX, "button.mp3");
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
     }
 
     public SaveState getProgress() {

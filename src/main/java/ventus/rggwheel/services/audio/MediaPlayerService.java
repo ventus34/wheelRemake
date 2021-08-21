@@ -23,15 +23,29 @@ public class MediaPlayerService {
         MUSIC, SOUND_CLIPS, SFX
     }
 
+    static class SoundDescription {
+        final String filename;
+        final Duration duration;
+
+        public SoundDescription(String filename, Duration duration) {
+            this.filename = filename;
+            this.duration = duration;
+        }
+
+        public String getFilename() {
+            return filename;
+        }
+
+        public Duration getDuration() {
+            return duration;
+        }
+    }
+
     private final Double GLOBAL_VOLUME = 0.7;
 
-    Map<String, Media> soundClipsMap = load("sound/clips/");
-    Map<String, Media> sfxMap = load("sound/sfx/");
-    Map<String, Media> lessThanFiveSecondsMap = load("sound/music/5s");
-    Map<String, Media> lessThanTenSecondsMap = load("sound/music/10s");
-    Map<String, Media> lessThanThirtySecondsMap = load("sound/music/30s");
-    Map<String, Media> lessThanSixtySecondsMap = load("sound/music/60s");
-    Map<String, Media> longerMusicMap = load("sound/music/90s");
+    Map<SoundDescription, Media> soundClipsMap = load("sound/clips/");
+    Map<SoundDescription, Media> sfxMap = load("sound/sfx/");
+    Map<SoundDescription, Media> musicMap = load("sound/music/");
 
     public MediaPlayerService() {
         players = new HashMap<>();
@@ -46,34 +60,22 @@ public class MediaPlayerService {
         try {
             switch (player) {
                 case MUSIC:
-                    ArrayList<Media> music;
                     System.out.println(musicTime);
-                    if (musicTime <= 6) {
-                        music = new ArrayList<>(lessThanFiveSecondsMap.values());
-                    } else if (musicTime <= 12) {
-                        music = new ArrayList<>(lessThanTenSecondsMap.values());
-                        music.addAll(lessThanThirtySecondsMap.values());
-                    } else if (musicTime <= 30) {
-                        music = new ArrayList<>(lessThanThirtySecondsMap.values());
-                        music.addAll(lessThanSixtySecondsMap.values());
-                        music.addAll(longerMusicMap.values());
-                    } else if (musicTime <= 60) {
-                        music = new ArrayList<>(lessThanSixtySecondsMap.values());
-                        music.addAll(longerMusicMap.values());
-                    } else {
-                        music = new ArrayList<>(longerMusicMap.values());
+                    List<SoundDescription> suitableMusic = musicMap.keySet().stream().filter(desc -> Math.round(desc.duration.toSeconds()) >= musicTime).collect(Collectors.toList());
+                    Collections.shuffle(suitableMusic);
+                    if(suitableMusic.size()>0) {
+                        Media randomMusic = musicMap.get(suitableMusic.get(0));
+                        System.out.println(randomMusic.getSource());
+                        players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
+                        players.get(AudioPlayerEnum.MUSIC).play();
                     }
-                    Media randomMusic = music.get(rng.nextInt(music.size()));
-                    System.out.println(randomMusic.getSource());
-                    players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
-                    players.get(AudioPlayerEnum.MUSIC).play();
                     break;
                 case SOUND_CLIPS:
-                    players.replace(AudioPlayerEnum.SOUND_CLIPS, getAudioPlayer(soundClipsMap.get(fileName)));
+                    players.replace(AudioPlayerEnum.SOUND_CLIPS, getAudioPlayer(getByFilename(AudioPlayerEnum.SOUND_CLIPS, fileName)));
                     players.get(AudioPlayerEnum.SOUND_CLIPS).play();
                     break;
                 case SFX:
-                    players.replace(AudioPlayerEnum.SFX, getAudioPlayer(sfxMap.get(fileName)));
+                    players.replace(AudioPlayerEnum.SFX, getAudioPlayer(getByFilename(AudioPlayerEnum.SFX, fileName)));
                     players.get(AudioPlayerEnum.SFX).play();
                     break;
             }
@@ -136,13 +138,24 @@ public class MediaPlayerService {
         }
     }
 
-    private Map<String, Media> load(String directoryPath) {
+    private Map<SoundDescription, Media> load(String directoryPath) {
         File mainDir = new File (System.getProperty("user.dir"));
-        Map<String, Media> mediaMap = new HashMap<>();
+        Map<SoundDescription, Media> mediaMap = new HashMap<>();
         List<Path> result;
         try (Stream<Path> walk = Files.walk(Paths.get(mainDir.toURI().resolve(directoryPath)))) {
             result = walk.filter(Files::isRegularFile).collect(Collectors.toList());
-            result.forEach(currentFilePath -> mediaMap.put(currentFilePath.getFileName().toString(), new Media(currentFilePath.toUri().toString())));
+            result.forEach(currentFilePath -> {
+                Media currentMedia = new Media(currentFilePath.toUri().toString());
+                MediaPlayer currentPlayer = new MediaPlayer(currentMedia);
+                currentPlayer.setOnReady(() -> {
+                    System.out.println(currentMedia.getSource() + " Duration: "+currentMedia.getDuration().toSeconds());
+                    SoundDescription currentDesc = new SoundDescription(currentFilePath.getFileName().toString(), currentMedia.getDuration());
+                    mediaMap.put(currentDesc, new Media(currentFilePath.toUri().toString()));
+                });
+                SoundDescription currentDesc = new SoundDescription(currentFilePath.getFileName().toString(), currentMedia.getDuration());
+                mediaMap.put(currentDesc, new Media(currentFilePath.toUri().toString()));
+            });
+            System.out.println("Directory: " + directoryPath + " Number of files: " + mediaMap.size());
             return mediaMap;
         } catch (IOException e) {
             e.printStackTrace();
@@ -158,5 +171,25 @@ public class MediaPlayerService {
 
     public void setMusicTime(int musicTime) {
         this.musicTime = musicTime;
+    }
+    
+    private Media getByFilename(AudioPlayerEnum audioType, String filename){
+        Map<SoundDescription, Media> map;
+        switch (audioType) {
+            case MUSIC:
+                map = musicMap;
+                break;
+            case SOUND_CLIPS:
+                map = soundClipsMap;
+                break;
+            case SFX:
+                map = sfxMap;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + audioType);
+        }
+        SoundDescription desc = map.keySet().stream().filter(soundDescription -> soundDescription.getFilename().equalsIgnoreCase(filename)).findFirst().orElse(null);
+        if(desc==null) throw new IllegalArgumentException("Missing audio file for filename: " + filename);
+        return map.get(desc);
     }
 }

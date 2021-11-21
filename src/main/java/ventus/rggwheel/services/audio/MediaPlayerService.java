@@ -6,6 +6,7 @@ import javafx.animation.Timeline;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import ventus.rggwheel.services.save.SaveStateService;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 public class MediaPlayerService {
     private final Map<AudioPlayerEnum, MediaPlayer> players;
     private int musicTime = 10;
+    SaveStateService saveStateService;
 
     public enum AudioPlayerEnum {
         MUSIC, SOUND_CLIPS, SFX, BUTTON
@@ -48,7 +50,8 @@ public class MediaPlayerService {
     Map<SoundDescription, Media> soundClipsMap = load("sound/clips/");
     Map<SoundDescription, Media> musicMap = load("sound/music/");
 
-    public MediaPlayerService() {
+    public MediaPlayerService(SaveStateService saveStateService) {
+        this.saveStateService = saveStateService;
         players = new HashMap<>();
         players.put(AudioPlayerEnum.SFX, null);
         players.put(AudioPlayerEnum.MUSIC, null);
@@ -60,13 +63,15 @@ public class MediaPlayerService {
             switch (player) {
                 case MUSIC:
                     System.out.println(musicTime);
-                    List<SoundDescription> suitableMusic = musicMap.keySet().stream().filter(desc -> Math.round(desc.duration.toSeconds()) >= musicTime).collect(Collectors.toList());
+                    List<SoundDescription> suitableMusic = getSuitableMusic();
                     Collections.shuffle(suitableMusic);
                     if(suitableMusic.size()>0) {
-                        Media randomMusic = musicMap.get(suitableMusic.get(0));
-                        System.out.println(randomMusic.getSource());
-                        players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
-                        players.get(AudioPlayerEnum.MUSIC).play();
+                        playRandomSong(suitableMusic);
+                    } else {
+                        saveStateService.getPlayedList().clear();
+                        if(suitableMusic.size()>0) {
+                            playRandomSong(suitableMusic);
+                        }
                     }
                     break;
                 case SOUND_CLIPS:
@@ -85,6 +90,22 @@ public class MediaPlayerService {
         } catch (Exception ex){
             System.err.println(ex.getMessage());
         }
+    }
+
+    private void playRandomSong(List<SoundDescription> suitableMusic) {
+        Media randomMusic = musicMap.get(suitableMusic.get(0));
+        saveStateService.getPlayedList().add(suitableMusic.get(0).getFilename());
+        System.out.println(randomMusic.getSource());
+        players.replace(AudioPlayerEnum.MUSIC, getAudioPlayer(randomMusic));
+        players.get(AudioPlayerEnum.MUSIC).play();
+        saveStateService.saveSongs();
+    }
+
+    private List<SoundDescription> getSuitableMusic() {
+        return musicMap.keySet().stream()
+                .filter(desc -> Math.round(desc.duration.toSeconds()) >= musicTime)
+                .filter(desc -> saveStateService.getPlayedList().stream().noneMatch(desc.filename::equals))
+                .collect(Collectors.toList());
     }
 
 

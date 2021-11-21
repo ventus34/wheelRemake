@@ -40,17 +40,11 @@ public class WheelUtils {
     }
 
     public static double getRandomAngle(double currentRotation, int spinTime) {
-        double randomAngle;
-        double currentPlacement;
-        do{
-            randomAngle = rng.nextDouble()
+        return rng.nextDouble()
                     + rng.nextInt(360)
                     + (180 - rng.nextInt(180) - rng.nextDouble())
                     + (rng.nextInt(5) + 1) * spinTime * 360
                     + spinTime * (1+rng.nextDouble());
-            currentPlacement = (currentRotation + randomAngle) % 360 % 20;
-        } while (currentPlacement > 19.5 || currentPlacement < 0.5);
-        return randomAngle;
     }
 
     public static int getRandomNumberOfPrize() {

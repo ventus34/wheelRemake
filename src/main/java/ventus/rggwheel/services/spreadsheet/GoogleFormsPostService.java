@@ -13,11 +13,13 @@ public class GoogleFormsPostService {
 
     public static void init() {
         File config = new File(System.getProperty("user.dir") + "/config.properties");
-        properties = new Properties();
+        Properties tempProperties = new Properties();
         try {
-            properties.load(new FileInputStream(config));
+            tempProperties.load(new FileInputStream(config));
+            properties = tempProperties;
+
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Config file not found!");
         }
     }
 
@@ -28,43 +30,47 @@ public class GoogleFormsPostService {
     }
 
     public static void savePrizeToSpreadsheet(String prizeName, String inventory) {
-        if(properties==null) init();
-        String prePostData = stateToPostParams(prizeName, inventory);
-        System.out.println("URL: " + properties.getProperty("googleFormURL"));
-        System.out.println("DATA: " + prePostData);
-        if (Boolean.parseBoolean(properties.getProperty("sendToForms"))) {
-            try {
-                URL url = new URL(properties.getProperty("googleFormURL"));
-                URLConnection con = url.openConnection();
-                HttpURLConnection http = (HttpURLConnection) con;
-                con.setRequestProperty("User-Agent", "Java");
-                http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                http.setRequestMethod("POST");
-                http.setDoOutput(true);
-                http.connect();
-                byte[] postData = stateToPostParams(prizeName, inventory).getBytes(StandardCharsets.UTF_8);
-                try (var wr = new DataOutputStream(con.getOutputStream())) {
-                    wr.write(postData);
-                }
-                StringBuilder content;
-
-                try (var br = new BufferedReader(
-                        new InputStreamReader(con.getInputStream()))) {
-
-                    String line;
-                    content = new StringBuilder();
-
-                    while ((line = br.readLine()) != null) {
-
-                        content.append(line);
-                        content.append(System.lineSeparator());
+        if(properties==null){
+            init();
+        }
+        if(properties!=null) {
+            String prePostData = stateToPostParams(prizeName, inventory);
+            System.out.println("URL: " + properties.getProperty("googleFormURL"));
+            System.out.println("DATA: " + prePostData);
+            if (Boolean.parseBoolean(properties.getProperty("sendToForms"))) {
+                try {
+                    URL url = new URL(properties.getProperty("googleFormURL"));
+                    URLConnection con = url.openConnection();
+                    HttpURLConnection http = (HttpURLConnection) con;
+                    con.setRequestProperty("User-Agent", "Java");
+                    http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    http.setRequestMethod("POST");
+                    http.setDoOutput(true);
+                    http.connect();
+                    byte[] postData = stateToPostParams(prizeName, inventory).getBytes(StandardCharsets.UTF_8);
+                    try (var wr = new DataOutputStream(con.getOutputStream())) {
+                        wr.write(postData);
                     }
-                }
+                    StringBuilder content;
+
+                    try (var br = new BufferedReader(
+                            new InputStreamReader(con.getInputStream()))) {
+
+                        String line;
+                        content = new StringBuilder();
+
+                        while ((line = br.readLine()) != null) {
+
+                            content.append(line);
+                            content.append(System.lineSeparator());
+                        }
+                    }
 
 //            System.out.println(content.toString());
-                http.disconnect();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    http.disconnect();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

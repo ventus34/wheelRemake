@@ -1,28 +1,27 @@
 package ventus.rggwheel.controllers;
 
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Label;
+import javafx.scene.shape.Rectangle;
 import ventus.rggwheel.RetroBoyModesEnum;
 
 public class BackgroundController {
-    private final ImageView backgroundMono;
-    private final ImageView backgroundColor;
+    private final Rectangle screen;
+    private final Label retroboyName;
 
-    public BackgroundController(ImageView backgroundMono, ImageView backgroundColor) {
-        this.backgroundMono = backgroundMono;
-        this.backgroundColor = backgroundColor;
+    public BackgroundController(Rectangle screen, Label retroboyName) {
+        this.screen = screen;
+        this.retroboyName = retroboyName;
     }
 
-    private RetroBoyModesEnum backgroundMode = RetroBoyModesEnum.MONO;
+    private RetroBoyModesEnum backgroundMode = RetroBoyModesEnum.GBC;
 
     public void switchBackground(){
-        if(backgroundMode == RetroBoyModesEnum.MONO){
-            backgroundMode = RetroBoyModesEnum.COLOR;
-            backgroundMono.setOpacity(0);
-            backgroundColor.setOpacity(100);
+        screen.setFill(backgroundMode.getBackground());
+        retroboyName.setText(backgroundMode.getRetroboyName());
+        if(backgroundMode == RetroBoyModesEnum.GBC){
+            backgroundMode = RetroBoyModesEnum.GB;
         } else {
-            backgroundMode = RetroBoyModesEnum.MONO;
-            backgroundMono.setOpacity(100);
-            backgroundColor.setOpacity(0);
+            backgroundMode = RetroBoyModesEnum.GBC;
         }
     }
 

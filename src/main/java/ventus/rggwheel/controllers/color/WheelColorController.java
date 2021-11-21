@@ -6,52 +6,22 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ventus.rggwheel.controllers.WheelController;
+import ventus.rggwheel.model.PaletteEnum;
 import ventus.rggwheel.utils.WheelUtils;
+
+import java.util.stream.Collectors;
 
 public class WheelColorController extends WheelController {
     @FXML private Label spinTime;
     @FXML private ImageView wheelColor;
     @FXML private AnchorPane colorPane;
+    @FXML private AnchorPane labelPane;
+    @FXML private AnchorPane wheelPane;
 
-    @FXML private Label prizeLabel_color1;
-    @FXML private Label prizeLabel_color2;
-    @FXML private Label prizeLabel_color3;
-    @FXML private Label prizeLabel_color4;
-    @FXML private Label prizeLabel_color5;
-    @FXML private Label prizeLabel_color6;
-    @FXML private Label prizeLabel_color7;
-    @FXML private Label prizeLabel_color8;
-    @FXML private Label prizeLabel_color9;
-    @FXML private Label prizeLabel_color10;
-    @FXML private Label prizeLabel_color11;
-    @FXML private Label prizeLabel_color12;
-    @FXML private Label prizeLabel_color13;
-    @FXML private Label prizeLabel_color14;
-    @FXML private Label prizeLabel_color15;
-    @FXML private Label prizeLabel_color16;
-    @FXML private Label prizeLabel_color17;
-    @FXML private Label prizeLabel_color18;
-
-    @FXML void initialize(){
+    @FXML
+    void initialize(){
         colorPane.setRotate(colorPane.getRotate() + WheelUtils.getAngle()/2 + 7200);
-        prizesList.add(prizeLabel_color1);
-        prizesList.add(prizeLabel_color2);
-        prizesList.add(prizeLabel_color3);
-        prizesList.add(prizeLabel_color4);
-        prizesList.add(prizeLabel_color5);
-        prizesList.add(prizeLabel_color6);
-        prizesList.add(prizeLabel_color7);
-        prizesList.add(prizeLabel_color8);
-        prizesList.add(prizeLabel_color9);
-        prizesList.add(prizeLabel_color10);
-        prizesList.add(prizeLabel_color11);
-        prizesList.add(prizeLabel_color12);
-        prizesList.add(prizeLabel_color13);
-        prizesList.add(prizeLabel_color14);
-        prizesList.add(prizeLabel_color15);
-        prizesList.add(prizeLabel_color16);
-        prizesList.add(prizeLabel_color17);
-        prizesList.add(prizeLabel_color18);
+        prizesList.addAll(labelPane.getChildren().stream().map(child -> (Label) child).collect(Collectors.toList()));
     }
 
     @Override
@@ -90,6 +60,11 @@ public class WheelColorController extends WheelController {
     public void randomizer() {
         goToRandomPrize(colorPane);
         setRandomTime();
+    }
+
+    @Override
+    public void setPalette(PaletteEnum palette, boolean shuffle){
+        setWheelPalette(wheelPane, labelPane, palette, shuffle);
     }
 
 }

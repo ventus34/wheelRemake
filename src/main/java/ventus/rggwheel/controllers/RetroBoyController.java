@@ -3,11 +3,15 @@ package ventus.rggwheel.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import ventus.rggwheel.RetroBoyModesEnum;
+import ventus.rggwheel.model.PaletteEnum;
 import ventus.rggwheel.model.PrizeEnum;
 import ventus.rggwheel.model.SaveState;
 import ventus.rggwheel.services.audio.MediaPlayerService;
@@ -38,6 +42,8 @@ public class RetroBoyController {
     private ImageView backgroundMono;
     @FXML
     private ImageView backgroundColor;
+    @FXML
+    private Rectangle screen;
 
     @FXML
     private Button speedUp;
@@ -57,6 +63,26 @@ public class RetroBoyController {
     private Button colorMode;
     @FXML
     private Button spinButton;
+    @FXML
+    private Button random;
+    @FXML
+    private Button mode;
+
+    //Button images
+    @FXML
+    private ImageView buttonMode;
+
+    @FXML
+    private ImageView buttonCheck;
+
+    @FXML
+    private ImageView buttonRandom;
+
+    @FXML
+    private ImageView buttonSpin;
+
+    @FXML
+    private Label retroboyName;
 
     private Set<Button> buttons;
 
@@ -121,9 +147,9 @@ public class RetroBoyController {
     private WheelColorController wheelColorController;
 
     private TransitionManagerService transitionManagerService;
-    private final MediaPlayerService mediaPlayerService = new MediaPlayerService();
+    private SaveStateService saveStateService = new SaveStateService();
+    private final MediaPlayerService mediaPlayerService = new MediaPlayerService(saveStateService);
     private final PrizesService prizesService = new PrizesService();
-    private SaveStateService saveStateService;
     private boolean isAfterSplashScreen = false;
 
     public void initialize() {
@@ -172,7 +198,7 @@ public class RetroBoyController {
 //        monoScenesControllers.add(prizesHistoryMonoController);
 //        monoScenesControllers.add(statisticsMonoController);
 
-        BackgroundController backgroundController = new BackgroundController(backgroundMono, backgroundColor);
+        BackgroundController backgroundController = new BackgroundController(screen, retroboyName);
 
         transitionManagerService = new TransitionManagerService(monoScenesControllers, colorScenesControllers, backgroundController);
         wheelColorController.setMediaPlayerService(mediaPlayerService);
@@ -196,8 +222,11 @@ public class RetroBoyController {
         buttons.add(check);
         buttons.add(colorMode);
         buttons.add(spinButton);
+        buttons.add(random);
+        buttons.add(mode);
 
-        saveStateService = new SaveStateService();
+        switchButtonsColor();
+
         inventoryMonoController.setHintLabel();
         inventoryColorController.setHintLabel();
         inventoryMonoController.setRerollLabel();
@@ -205,22 +234,25 @@ public class RetroBoyController {
         unlockButtons();
         wheelMonoController.setLabels();
         wheelColorController.setLabels();
+        wheelMonoController.setPalette(PaletteEnum.GB_4, false);
+        wheelColorController.setPalette(PaletteEnum.GBC_1, false);
     }
 
     @FXML
     private void spinAction() {
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
-        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
-            wheelColorController.spinWheel();
-        } else {
-            wheelMonoController.spinWheel();
+        if(transitionManagerService.getCurrentScene().equals(TransitionManagerService.SceneEnum.WHEEL)) {
+            mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
+            if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.GB)) {
+                wheelColorController.spinWheel();
+            } else {
+                wheelMonoController.spinWheel();
+            }
         }
     }
 
     @FXML
     private void moveUp() {
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
-        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
+        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.GB)) {
             wheelColorController.moveToNext();
         } else {
             wheelMonoController.moveToNext();
@@ -229,8 +261,7 @@ public class RetroBoyController {
 
     @FXML
     private void moveDown() {
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
-        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.COLOR)) {
+        if (transitionManagerService.getCurrentMode().equals(RetroBoyModesEnum.GB)) {
             wheelColorController.moveToPrevious();
         } else {
             wheelMonoController.moveToPrevious();
@@ -239,7 +270,6 @@ public class RetroBoyController {
 
     @FXML
     private void timeUp() {
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         Integer time = Integer.valueOf(wheelColorController.getSpinTime().getText());
         wheelColorController.setSpinTime(++time);
         wheelMonoController.setSpinTime(time);
@@ -248,7 +278,6 @@ public class RetroBoyController {
 
     @FXML
     private void timeDown() {
-        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
         Integer time = Integer.valueOf(wheelColorController.getSpinTime().getText());
         if (time > 1) {
             wheelColorController.setSpinTime(--time);
@@ -286,6 +315,7 @@ public class RetroBoyController {
     @FXML
     private void switchMode() {
         transitionManagerService.switchMode();
+        switchButtonsColor();
         mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
     }
 
@@ -318,23 +348,54 @@ public class RetroBoyController {
         Scene currentScene = retroBoyPane.getScene();
         currentScene.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.R) {
-                if(WheelUtils.getRandomBoolean()){
-                    transitionManagerService.switchMode();
-                }
-                ColorUtils.changeToRandomColor(retroBoyPane);
-                switch (transitionManagerService.getCurrentMode()) {
-                    case MONO:
-                        wheelMonoController.randomizer();
-                        break;
-                    case COLOR:
-                        wheelColorController.randomizer();
-                        break;
-                }
-                prizesService.shufflePrizes();
-                wheelColorController.setLabels();
-                wheelMonoController.setLabels();
+                randomizer();
             }
         });
+    }
+
+    private void switchButtonsColor(){
+        RetroBoyModesEnum currentMode = transitionManagerService.getCurrentMode();
+        switch (currentMode) {
+            case GB:
+                buttonMode.setEffect(new ColorAdjust(0.49,0.0,0,0));
+                buttonRandom.setEffect(new ColorAdjust(-0.71,0.0,0,0));
+                buttonCheck.setEffect(new ColorAdjust(0.33,0.0,0,0));
+                buttonSpin.setEffect(new ColorAdjust(0.03,0.0,0,0));
+                break;
+            case GBC:
+                buttonMode.setEffect(new ColorAdjust(0,-1.0,-0.28,0));
+                buttonRandom.setEffect(new ColorAdjust(0,-1.0,-0.28,0));
+                buttonCheck.setEffect(new ColorAdjust(0,-1.0,-0.55,0));
+                buttonSpin.setEffect(new ColorAdjust(0,-1.0,-0.55,0));
+                break;
+        }
+    }
+
+    @FXML
+    private void changeConsole(){
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
+    }
+
+    @FXML
+    private void randomizer() {
+        mediaPlayerService.play(MediaPlayerService.AudioPlayerEnum.BUTTON, null);
+        if(WheelUtils.getRandomBoolean()){
+            transitionManagerService.switchMode();
+        }
+        ColorUtils.changeToRandomColor(retroBoyPane);
+        switchButtonsColor();
+        switch (transitionManagerService.getCurrentMode()) {
+            case GBC:
+                wheelMonoController.randomizer();
+                break;
+            case GB:
+                wheelColorController.setPalette(PaletteEnum.GBC_1, true);
+                wheelColorController.randomizer();
+                break;
+        }
+        prizesService.shufflePrizes();
+        wheelColorController.setLabels();
+        wheelMonoController.setLabels();
     }
 
     public void updateInventory() {

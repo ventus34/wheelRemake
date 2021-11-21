@@ -6,55 +6,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import ventus.rggwheel.controllers.WheelController;
+import ventus.rggwheel.model.PaletteEnum;
 import ventus.rggwheel.utils.WheelUtils;
 
-import java.util.ArrayList;
+import java.util.stream.Collectors;
+
 
 public class WheelMonoController extends WheelController {
     @FXML private Label spinTime;
     @FXML private ImageView wheelMono;
     @FXML private AnchorPane monoPane;
+    @FXML private AnchorPane labelPane;
+    @FXML private AnchorPane wheelPane;
 
-    @FXML private Label prizeLabel_mono1;
-    @FXML private Label prizeLabel_mono2;
-    @FXML private Label prizeLabel_mono3;
-    @FXML private Label prizeLabel_mono4;
-    @FXML private Label prizeLabel_mono5;
-    @FXML private Label prizeLabel_mono6;
-    @FXML private Label prizeLabel_mono7;
-    @FXML private Label prizeLabel_mono8;
-    @FXML private Label prizeLabel_mono9;
-    @FXML private Label prizeLabel_mono10;
-    @FXML private Label prizeLabel_mono11;
-    @FXML private Label prizeLabel_mono12;
-    @FXML private Label prizeLabel_mono13;
-    @FXML private Label prizeLabel_mono14;
-    @FXML private Label prizeLabel_mono15;
-    @FXML private Label prizeLabel_mono16;
-    @FXML private Label prizeLabel_mono17;
-    @FXML private Label prizeLabel_mono18;
-
-    @FXML void initialize(){
+    @FXML
+    void initialize(){
         monoPane.setRotate(monoPane.getRotate() + WheelUtils.getAngle()/2 + 7200);
-
-        prizesList.add(prizeLabel_mono1);
-        prizesList.add(prizeLabel_mono2);
-        prizesList.add(prizeLabel_mono3);
-        prizesList.add(prizeLabel_mono4);
-        prizesList.add(prizeLabel_mono5);
-        prizesList.add(prizeLabel_mono6);
-        prizesList.add(prizeLabel_mono7);
-        prizesList.add(prizeLabel_mono8);
-        prizesList.add(prizeLabel_mono9);
-        prizesList.add(prizeLabel_mono10);
-        prizesList.add(prizeLabel_mono11);
-        prizesList.add(prizeLabel_mono12);
-        prizesList.add(prizeLabel_mono13);
-        prizesList.add(prizeLabel_mono14);
-        prizesList.add(prizeLabel_mono15);
-        prizesList.add(prizeLabel_mono16);
-        prizesList.add(prizeLabel_mono17);
-        prizesList.add(prizeLabel_mono18);
+        prizesList.addAll(labelPane.getChildren().stream().map(child -> (Label) child).collect(Collectors.toList()));
     }
 
     @Override
@@ -91,8 +59,13 @@ public class WheelMonoController extends WheelController {
 
     @Override
     public void randomizer() {
+        setPalette(PaletteEnum.GB_4, true);
         goToRandomPrize(monoPane);
         setRandomTime();
     }
 
+    @Override
+    public void setPalette(PaletteEnum palette, boolean shuffle){
+        setWheelPalette(wheelPane, labelPane, palette, shuffle);
+    }
 }

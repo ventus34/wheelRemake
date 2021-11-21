@@ -1,11 +1,12 @@
 package ventus.rggwheel.utils;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import ventus.rggwheel.model.PaletteEnum;
 import ventus.rggwheel.model.RetroBoyColorEnum;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("SyntaxError")
 public class ColorUtils {
@@ -34,6 +35,10 @@ public class ColorUtils {
         int randomColorHex = random.nextInt(0xffffff + 1);
         color = String.format("#%06x", randomColorHex);
         pane.setStyle("-fx-background-color: " + color + ";");
+    }
+
+    public static List<Color> prepareColors(PaletteEnum palette){
+        return Arrays.stream(palette.getColors()).map(Color::web).collect(Collectors.toList());
     }
 
 }

@@ -1,5 +1,6 @@
 package ventus.rggwheel.utils;
 
+import javafx.animation.Interpolator;
 import ventus.rggwheel.model.PrizeEnum;
 
 import java.security.SecureRandom;
@@ -43,8 +44,15 @@ public class WheelUtils {
         return rng.nextDouble()
                     + rng.nextInt(360)
                     + (180 - rng.nextInt(180) - rng.nextDouble())
-                    + (rng.nextInt(5) + 1) * spinTime * 360
-                    + spinTime * (1+rng.nextDouble());
+                    + spinTime * (90 + rng.nextInt(180))
+                    + (1+rng.nextDouble());
+    }
+
+    public static Interpolator getRandomInterpolator(){
+        double a1 = rng.nextDouble() * (0.15 - 0.01) + 0.01;
+        double a2 = rng.nextDouble() * (0.50 - 0.10) + 0.10;
+        double b1 = rng.nextDouble() * (0.7 - 0.3) + 0.3;
+        return Interpolator.SPLINE(a1,a2,b1,1);
     }
 
     public static int getRandomNumberOfPrize() {

@@ -2,6 +2,7 @@ package ventus.rggwheel;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.CacheHint;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
@@ -22,6 +23,10 @@ public class App extends Application {
         Font.loadFont(getClass().getResourceAsStream("fonts/BitCell.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("fonts/emulogic.ttf"), 14);
         scene = new Scene(loadFXML("retroBoy"));
+        scene.getRoot().getChildrenUnmodifiable().forEach(child -> child.setCache(true));
+        scene.getRoot().getChildrenUnmodifiable().forEach(child -> child.setCacheHint(CacheHint.SPEED));
+        stage.setMaxHeight(1035);
+        stage.setMaxWidth(1480);
         stage.setScene(scene);
         stage.show();
         RetroBoySizeHandlerService.resizeHandler(scene);

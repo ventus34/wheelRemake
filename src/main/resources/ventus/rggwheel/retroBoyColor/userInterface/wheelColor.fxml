@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Arc?>
 <?import javafx.scene.shape.Circle?>
@@ -15,115 +14,115 @@
 <AnchorPane opacity="0.0" prefHeight="1025.0" prefWidth="1480.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventus.rggwheel.controllers.color.WheelColorController">
    <AnchorPane fx:id="colorPane" cache="true" cacheHint="SPEED" layoutX="570.0" layoutY="250.0" prefHeight="407.0" prefWidth="472.0">
       <children>
-         <AnchorPane fx:id="wheelPane" prefHeight="550.0" prefWidth="550.0" rotate="180.0">
+         <AnchorPane fx:id="wheelPane" cache="true" cacheHint="SPEED" prefHeight="550.0" prefWidth="550.0" rotate="180.0">
             <children>
-               <Arc fill="#ff2121" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ff2121" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#ff9121" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="18.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ff9121" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#ffcf21" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="36.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ffcf21" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="36.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#faff1f" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="54.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#faff1f" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="54.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#c4ff1f" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="72.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#c4ff1f" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="72.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#73ff21" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="90.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#73ff21" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#21ff64" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="108.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#21ff64" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="108.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1fffd2" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="126.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1fffd2" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="126.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1fedff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="144.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1fedff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="144.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1fbcff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="162.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1fbcff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="162.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1f90ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1f90ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="180.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1f69ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="198.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1f69ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="198.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1f51ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="216.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1f51ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="216.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#1f25ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="234.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#1f25ff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="234.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#5c1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="252.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#5c1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="252.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#7e1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="270.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#7e1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="270.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#af1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="288.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#af1fff" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="288.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#ff1ff8" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="306.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ff1ff8" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="306.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#ff1f92" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="324.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ff1f92" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="324.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Arc fill="#ff1f58" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="342.0" stroke="BLACK" strokeType="INSIDE" type="ROUND">
+               <Arc fill="#ff1f58" layoutX="275.0" layoutY="275.0" length="18.0" radiusX="275.0" radiusY="275.0" startAngle="342.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="1.5" type="ROUND">
                   <effect>
                      <InnerShadow height="75.62" radius="18.405" width="0.0" />
                   </effect>
                </Arc>
-               <Circle centerX="275.0" centerY="275.0" radius="15.0" stroke="BLACK" strokeType="INSIDE"/>
+               <Circle centerX="275.0" centerY="275.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
             </children>
             <effect>
                <InnerShadow choke="0.7" height="10.0" radius="4.5" width="10.0" />
             </effect>
          </AnchorPane>
-         <AnchorPane fx:id="labelPane">
+         <AnchorPane fx:id="labelPane" cache="true" cacheHint="SPEED">
             <children>
                <Label fx:id="prizeLabel_color1" layoutX="9.0" layoutY="207.0" opacity="0.95" prefHeight="84.0" prefWidth="230.0" rotate="9.0" text="Cat in the bag" textFill="WHITE">
                   <font>

@@ -1,6 +1,7 @@
 package ventus.rggwheel.controllers.mono;
 
 import javafx.fxml.FXML;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,11 @@ public class WheelMonoController extends WheelController {
     void initialize(){
         monoPane.setRotate(monoPane.getRotate() + WheelUtils.getAngle()/2 + 7200);
         prizesList.addAll(labelPane.getChildren().stream().map(child -> (Label) child).collect(Collectors.toList()));
+        prizesList.forEach(prize -> {
+            prize.setCache(true);
+            prize.setCacheHint(CacheHint.SPEED);
+            prize.setCacheShape(true);
+        });
     }
 
     @Override

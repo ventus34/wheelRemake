@@ -2,6 +2,7 @@ package ventus.rggwheel.controllers;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -80,8 +81,7 @@ public abstract class WheelController extends FXMLController {
         rotation.setFromAngle(currentRotation);
         rotation.setToAngle(currentRotation + spinAngle);
         rotation.setCycleCount(1);
-//        rotation.setInterpolator(Interpolator.SPLINE(0.12, 1.0, 0.22, 1));
-        rotation.setInterpolator(Interpolator.SPLINE(0.06, 0.59, 0.25, 1));
+        rotation.setInterpolator(WheelUtils.getRandomInterpolator());
         rotation.setAutoReverse(false);
         int fadeoutDuration = (int) Math.min(MUSIC_FADEOUT_TIME, spinTime.toSeconds());
         rotation.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
@@ -176,8 +176,15 @@ public abstract class WheelController extends FXMLController {
         List<Shape> arcs = arcsPane.getChildren().stream().filter(node -> node instanceof Arc).map(arc -> (Arc) arc).collect(Collectors.toList());
         for (int i = 0; i < arcs.size(); i++) {
             arcs.get(i).setFill(colors.get(i % colors.size()));
+            arcs.get(i).setCache(true);
+            arcs.get(i).setCacheHint(CacheHint.SPEED);
         }
-        labelsPane.getChildren().forEach(node -> ((Label) node).setTextFill(palette.getMode().getPrizeLabelColor()));
+        labelsPane.getChildren().forEach(node -> {
+            ((Label) node).setTextFill(palette.getMode().getPrizeLabelColor());
+            node.setCache(true);
+            node.setCacheHint(CacheHint.SPEED);
+            ((Label) node).setCacheShape(true);
+        });
     }
 
 

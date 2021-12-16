@@ -1,6 +1,7 @@
 package ventus.rggwheel.controllers.color;
 
 import javafx.fxml.FXML;
+import javafx.scene.CacheHint;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,11 @@ public class WheelColorController extends WheelController {
     void initialize(){
         colorPane.setRotate(colorPane.getRotate() + WheelUtils.getAngle()/2 + 7200);
         prizesList.addAll(labelPane.getChildren().stream().map(child -> (Label) child).collect(Collectors.toList()));
+        prizesList.forEach(prize -> {
+            prize.setCache(true);
+            prize.setCacheHint(CacheHint.SPEED);
+            prize.setCacheShape(true);
+        });
     }
 
     @Override

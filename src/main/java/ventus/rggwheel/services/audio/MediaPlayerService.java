@@ -69,6 +69,8 @@ public class MediaPlayerService {
                         playRandomSong(suitableMusic);
                     } else {
                         saveStateService.getPlayedList().clear();
+                        System.out.println("Clearing played list");
+                        suitableMusic = getSuitableMusic();
                         if(suitableMusic.size()>0) {
                             playRandomSong(suitableMusic);
                         }
@@ -172,7 +174,7 @@ public class MediaPlayerService {
                 Media currentMedia = new Media(currentFilePath.toUri().toString());
                 MediaPlayer currentPlayer = new MediaPlayer(currentMedia);
                 currentPlayer.setOnReady(() -> {
-                    System.out.println(currentMedia.getSource() + " Duration: "+currentMedia.getDuration().toSeconds());
+//                    System.out.println(currentMedia.getSource() + " Duration: "+currentMedia.getDuration().toSeconds());
                     SoundDescription currentDesc = new SoundDescription(currentFilePath.getFileName().toString(), currentMedia.getDuration());
                     mediaMap.put(currentDesc, new Media(currentFilePath.toUri().toString()));
                 });

@@ -15,11 +15,12 @@ public class RetroBoySizeHandlerService {
         window.widthProperty().addListener((observableValue, oldSceneWidth, newSceneWidth) -> {
             mainNode.setTranslateX(-((width - newSceneWidth.doubleValue()) / 2));
             mainNode.setScaleX(newSceneWidth.doubleValue() / windowWidth);
+//            System.out.println("translateX" + -((width - newSceneWidth.doubleValue()) / 2) + ";" + "scale " + newSceneWidth.doubleValue() / windowWidth);
         });
         window.heightProperty().addListener((observableValue, oldSceneHeight, newSceneHeight) -> {
-            mainNode.setScaleY(newSceneHeight.doubleValue() / windowHeight);
             mainNode.setTranslateY(-((height - newSceneHeight.doubleValue()) / 2));
-            mainNode.setLayoutY(0);
+            mainNode.setScaleY(newSceneHeight.doubleValue() / windowHeight);
+//            System.out.println("translateY" + -((height - newSceneHeight.doubleValue()) / 2) + ";" + "scale " + newSceneHeight.doubleValue() / windowHeight);
         });
     }
 

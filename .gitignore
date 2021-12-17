@@ -1,0 +1,4 @@
+*.mp3
+!sound/clips/*.mp3
+!sound/music/*.mp3
+!sound/sfx/*.mp3
